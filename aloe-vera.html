@@ -14,8 +14,8 @@
         }
 
         #aloe-vera-model-container {
-            width: 100%; /* Adjust width */
-            height: 800px; /* Adjust height */
+            width: 100%;
+            height: 60vh; /* Relative height */
             margin: 20px auto; /* Center container */
             position: relative;
         }
@@ -127,8 +127,9 @@
 
         // Initialize the renderer
         const renderer = new THREE.WebGLRenderer({ antialias: true });
-        renderer.setSize(window.innerWidth, window.innerHeight);
-        document.getElementById('aloe-vera-model').appendChild(renderer.domElement);
+        const container = document.getElementById('aloe-vera-model');
+        renderer.setSize(container.clientWidth, container.clientHeight); // Fit the model container
+        container.appendChild(renderer.domElement);
 
         // Initialize OrbitControls
         const controls = new THREE.OrbitControls(camera, renderer.domElement);
@@ -167,13 +168,17 @@
 
         // Handle window resize
         window.addEventListener('resize', function() {
-            const width = window.innerWidth;
-            const height = window.innerHeight;
+            const width = container.clientWidth;
+            const height = container.clientHeight;
             renderer.setSize(width, height);
             camera.aspect = width / height;
             camera.updateProjectionMatrix();
         });
     </script>
+
+</body>
+</html>
+
 
 </body>
 </html>

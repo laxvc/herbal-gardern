@@ -6,7 +6,6 @@
     <title>Aloe Vera - 3D Herbal Garden</title>
     <link rel="stylesheet" href="styles.css">
     <style>
-        /* Style the container and table */
         body {
             margin: 0;
             font-family: Arial, sans-serif;
@@ -15,8 +14,8 @@
 
         #aloe-vera-model-container {
             width: 100%;
-            height: 60vh; /* Relative height */
-            margin: 20px auto; /* Center container */
+            height: 40vh; /* Smaller height for the loading screen */
+            margin: 20px auto;
             position: relative;
         }
 
@@ -25,40 +24,25 @@
             height: 100%;
         }
 
+        #full-screen-toggle {
+            margin: 20px auto;
+            display: block;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
         .content {
             padding: 20px;
             background: #ffffff;
             border-top: 1px solid #dddddd;
         }
 
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-        }
-
-        table, th, td {
-            border: 1px solid #dddddd;
-            text-align: left;
-            padding: 8px;
-        }
-
-        th {
-            background-color: #4CAF50;
-            color: white;
-        }
-
-        td {
-            background-color: #f9f9f9;
-        }
-
-        h1, h2 {
+        h1 {
             color: #4CAF50;
-        }
-
-        p {
-            font-size: 1.2em;
-            line-height: 1.5em;
         }
     </style>
     <!-- Include Three.js and GLTFLoader for GLB model -->
@@ -68,19 +52,18 @@
 </head>
 <body>
     <h1>Aloe Vera - 3D Model</h1>
+    <button id="full-screen-toggle">Toggle Full Screen</button>
     <div id="aloe-vera-model-container">
         <div id="aloe-vera-model"></div>
     </div>
 
     <div class="content">
-        <!-- Aloe Vera Benefits Section -->
+        <!-- Aloe Vera Details -->
         <h2>What is Aloe Vera?</h2>
-        <p>
-            Aloe Vera is a succulent plant known for its soothing and healing properties. Often used in skincare and cosmetics, Aloe Vera is celebrated for its ability to hydrate the skin, promote healing, and alleviate various skin conditions.
-        </p>
+        <p>Aloe Vera is a succulent plant known for its soothing and healing properties. Often used in skincare and cosmetics, Aloe Vera is celebrated for its ability to hydrate the skin, promote healing, and alleviate various skin conditions.</p>
 
-        <!-- Benefits Table -->
         <h2>Benefits of Aloe Vera in Traditional and Modern Medicine</h2>
+        <!-- Benefits Table -->
         <table>
             <tr>
                 <th>Benefit</th>
@@ -128,28 +111,31 @@
         // Initialize the renderer
         const renderer = new THREE.WebGLRenderer({ antialias: true });
         const container = document.getElementById('aloe-vera-model');
-        renderer.setSize(container.clientWidth, container.clientHeight); // Fit the model container
+        renderer.setSize(container.clientWidth, container.clientHeight);
         container.appendChild(renderer.domElement);
+
+        // Dynamic resolution adjustment
+        renderer.setPixelRatio(window.devicePixelRatio); // Adjust resolution based on device
 
         // Initialize OrbitControls
         const controls = new THREE.OrbitControls(camera, renderer.domElement);
-        controls.enableZoom = true; // Enable zooming
-        controls.enablePan = false; // Disable panning if you prefer
+        controls.enableZoom = true;
+        controls.enablePan = false;
 
         // Lighting setup
         const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
         directionalLight.position.set(5, 5, 5).normalize();
         scene.add(directionalLight);
 
-        const ambientLight = new THREE.AmbientLight(0x404040); // Soft light
+        const ambientLight = new THREE.AmbientLight(0x404040);
         scene.add(ambientLight);
 
         // Load the GLTF model
         const loader = new THREE.GLTFLoader();
         loader.load('models/aloe-vera.glb', function(gltf) {
             const model = gltf.scene;
-            model.scale.set(0.3, 0.3, 0.3); // Adjust scale of the model
-            model.position.set(0, -0.5, 0); // Position the model within the view
+            model.scale.set(0.2, 0.2, 0.2); // Adjust scale for a smaller model
+            model.position.set(0, -0.5, 0);
             scene.add(model);
 
             // Adjust controls after model is loaded
@@ -174,11 +160,16 @@
             camera.aspect = width / height;
             camera.updateProjectionMatrix();
         });
+
+        // Full-screen toggle button functionality
+        document.getElementById('full-screen-toggle').addEventListener('click', () => {
+            if (document.fullscreenElement) {
+                document.exitFullscreen();
+            } else {
+                document.getElementById('aloe-vera-model-container').requestFullscreen();
+            }
+        });
     </script>
-
 </body>
 </html>
 
-
-</body>
-</html>

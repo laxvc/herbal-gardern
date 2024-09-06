@@ -13,9 +13,10 @@
             background-color: #f0f0f0;
         }
 
+        /* Updated model container to be small and square */
         #aloe-vera-model-container {
-            width: 60%; /* Adjust to limit width */
-            height: 500px; /* Reduce height */
+            width: 300px; /* Adjust to square shape */
+            height: 300px; /* Square size */
             margin: 20px auto; /* Center container */
             position: relative;
             border: 1px solid #dddddd; /* Optional border for better visibility */
@@ -138,12 +139,12 @@
         scene.background = new THREE.Color(0xf0f0f0); // Light grey background
 
         // Initialize the camera
-        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const camera = new THREE.PerspectiveCamera(75, 1, 0.1, 1000); // Adjusted aspect ratio to square
         camera.position.set(0, 0, 5); // Adjust camera position
 
         // Initialize the renderer
         const renderer = new THREE.WebGLRenderer({ antialias: true });
-        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setSize(300, 300); // Square size to match the container
         document.getElementById('aloe-vera-model').appendChild(renderer.domElement);
 
         // Initialize OrbitControls
@@ -183,8 +184,8 @@
 
         // Handle window resize
         window.addEventListener('resize', function() {
-            const width = window.innerWidth;
-            const height = window.innerHeight;
+            const width = 300; // Keep the width small and square
+            const height = 300; // Keep the height small and square
             renderer.setSize(width, height);
             camera.aspect = width / height;
             camera.updateProjectionMatrix();

@@ -1,0 +1,194 @@
+/* General Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+    line-height: 1.6;
+}
+
+/* Navbar Styles */
+.navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background-color: #4CAF50;
+    display: flex;
+    justify-content: space-between;
+    padding: 15px 30px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+}
+
+.navbar a {
+    color: white;
+    text-decoration: none;
+    padding: 10px 20px;
+    font-size: 1.2em;
+}
+
+.navbar a:hover {
+    background-color: #388E3C;
+    border-radius: 5px;
+}
+
+.navbar .logo a {
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+/* Hero Section */
+.hero {
+    height: 100vh;
+    background: url('images/hero-background.jpg') no-repeat center center/cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: white;
+}
+
+.hero h1 {
+    font-size: 4em;
+    margin: 0;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.hero p {
+    font-size: 1.5em;
+    margin-top: 20px;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+/* Featured Plants Section */
+.featured-plants {
+    padding: 60px 20px;
+    text-align: center;
+}
+
+.featured-plants h2 {
+    margin-bottom: 40px;
+    font-size: 2.5em;
+}
+
+.plant-card {
+    display: inline-block;
+    width: 30%;
+    margin: 0 10px 40px;
+    text-align: center;
+    transition: transform 0.3s;
+}
+
+.plant-card:hover {
+    transform: scale(1.05);
+}
+
+.plant-card img {
+    width: 100%;
+    border-radius: 15px;
+}
+
+.plant-card h3 {
+    margin-top: 15px;
+    font-size: 1.8em;
+}
+
+/* Footer Styles */
+.footer {
+    background-color: #333;
+    color: white;
+    padding: 40px;
+    text-align: center;
+}
+
+.footer p {
+    margin: 0;
+    font-size: 1.2em;
+}
+
+/* Plant Search Page */
+.plant-search {
+    text-align: center;
+    padding: 60px 20px;
+}
+
+.plant-search input {
+    width: 40%;
+    padding: 10px;
+    font-size: 1.2em;
+    border: 2px solid #4CAF50;
+    border-radius: 5px;
+    outline: none;
+}
+
+.plant-search button {
+    padding: 10px 20px;
+    font-size: 1.2em;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.plant-search button:hover {
+    background-color: #388E3C;
+}
+
+.plant-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 40px 20px;
+}
+
+.plant-item {
+    margin: 20px;
+    width: 200px;
+    text-align: center;
+    transition: transform 0.3s;
+}
+
+.plant-item:hover {
+    transform: scale(1.1);
+}
+
+.plant-item img {
+    width: 100%;
+    border-radius: 10px;
+}
+
+.plant-item h3 {
+    margin-top: 15px;
+    font-size: 1.5em;
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+    .plant-card {
+        width: 45%;
+    }
+}
+
+@media (max-width: 768px) {
+    .plant-card, .plant-item {
+        width: 100%;
+    }
+
+    .navbar a {
+        padding: 8px 12px;
+    }
+
+    .hero h1 {
+        font-size: 3em;
+    }
+
+    .hero p {
+        font-size: 1.2em;
+    }
+}

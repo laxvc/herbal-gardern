@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D Herbal Garden</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: #4CAF50;
+            display: flex;
+            justify-content: space-between;
+            padding: 15px 30px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+        }
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            padding: 8px 16px;
+        }
+        .hero {
+            height: 100vh;
+            background: url('images/hero-background.jpg') no-repeat center center/cover;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: white;
+            position: relative;
+        }
+        .hero h1 {
+            font-size: 4em;
+            margin: 0;
+        }
+        .hero p {
+            font-size: 1.5em;
+            margin-top: 20px;
+        }
+        .featured-plants {
+            padding: 60px 20px;
+            text-align: center;
+        }
+        .featured-plants h2 {
+            margin-bottom: 40px;
+            font-size: 2.5em;
+        }
+        .plant-card {
+            display: inline-block;
+            width: 30%;
+            margin: 0 10px 40px;
+            text-align: center;
+            transition: transform 0.3s;
+        }
+        .plant-card:hover {
+            transform: scale(1.05);
+        }
+        .plant-card img {
+            width: 100%;
+            border-radius: 15px;
+        }
+        .plant-card h3 {
+            margin-top: 15px;
+            font-size: 1.8em;
+        }
+        .footer {
+            background-color: #333;
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Navigation Bar -->
+<div class="navbar">
+    <div class="logo">
+        <a href="index.html">3D Herbal Garden</a>
+    </div>
+    <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="plants.html">Explore Plants</a>
+        <a href="contact.html">Contact</a>
+    </div>
+</div>
+
+<!-- Hero Section -->
+<div class="hero">
+    <div>
+        <h1>Welcome to the 3D Herbal Garden</h1>
+        <p>Explore the medicinal benefits of plants in an interactive 3D world.</p>
+    </div>
+</div>
+
+<!-- Featured Plants Section -->
+<div class="featured-plants">
+    <h2>Featured Plants</h2>
+    <div class="plant-card">
+        <img src="images/neem.jpg" alt="Neem Plant">
+        <h3>Neem</h3>
+        <p>Discover the benefits of Neem, a tree known for its medicinal properties.</p>
+    </div>
+    <div class="plant-card">
+        <img src="images/aloe-vera.jpg" alt="Aloe Vera">
+        <h3>Aloe Vera</h3>
+        <p>Aloe Vera, the natural healer for skin burns and more.</p>
+    </div>
+    <div class="plant-card">
+        <img src="images/tulsi.jpg" alt="Tulsi">
+        <h3>Tulsi</h3>
+        <p>Known as the 'Queen of Herbs', Tulsi offers numerous health benefits.</p>
+    </div>
+</div>
+
+<!-- Footer -->
+<div class="footer">
+    <p>&copy; 2024 3D Herbal Garden. All rights reserved.</p>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Herbal Plant Library - 3D Herbal Garden</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f4f7;
+        }
+        header {
+            background-color: #4CAF50;
+            padding: 20px;
+            text-align: center;
+            color: white;
+        }
+        header h1 {
+            margin: 0;
+            font-size: 2.5em;
+        }
+        .plant-search {
+            text-align: center;
+            padding: 40px 20px;
+            background-color: #e8f5e9;
+        }
+        .plant-search input {
+            width: 50%;
+            padding: 15px;
+            font-size: 1.2em;
+            margin-right: 10px;
+            border-radius: 8px;
+            border: 2px solid #4CAF50;
+        }
+        .plant-search button {
+            padding: 15px 25px;
+            font-size: 1.2em;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+        .plant-search button:hover {
+            background-color: #45a049;
+        }
+        .plant-category {
+            margin-top: 40px;
+            padding: 20px;
+        }
+        .plant-category h2 {
+            text-align: center;
+            font-size: 2em;
+            color: #333;
+        }
+        .plant-list {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+            padding: 40px 20px;
+        }
+        .plant-item {
+            width: 200px;
+            text-align: center;
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .plant-item:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+        }
+        .plant-item img {
+            width: 100%;
+            border-radius: 12px 12px 0 0;
+        }
+        .plant-item h3 {
+            margin-top: 10px;
+            font-size: 1.5em;
+            color: #333;
+        }
+        .plant-item p {
+            padding: 0 10px;
+            font-size: 1em;
+            color: #555;
+        }
+        footer {
+            background-color: #4CAF50;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Herbal Plant Library</h1>
+</header>
+
+<!-- Search Section -->
+<div class="plant-search">
+    <input type="text" id="searchBar" placeholder="Search for plants...">
+    <button onclick="searchPlants()">Search</button>
+</div>
+
+<!-- Categorized Plant Library -->
+<div class="plant-category">
+    <h2>A - F</h2>
+    <div class="plant-list" id="category1"></div>
+</div>
+
+<div class="plant-category">
+    <h2>G - M</h2>
+    <div class="plant-list" id="category2"></div>
+</div>
+
+<div class="plant-category">
+    <h2>N - Z</h2>
+    <div class="plant-list" id="category3"></div>
+</div>
+
+<!-- Footer -->
+<footer>
+    <p>Explore more plants and learn about their medicinal benefits!</p>
+</footer>
+
+<script>
+    const plants = [
+        { name: "Aloe Vera", image: "images/aloe-vera.jpg", link: "aloe-vera.html", description: "Soothing skin care remedy" },
+        { name: "Basil", image: "images/basil.jpg", link: "basil.html", description: "Boosts immune system" },
+        { name: "Chamomile", image: "images/chamomile.jpg", link: "chamomile.html", description: "Great for relaxation" },
+        { name: "Dandelion", image: "images/dandelion.jpg", link: "dandelion.html", description: "Detoxifies the liver" },
+        { name: "Echinacea", image: "images/echinacea.jpg", link: "echinacea.html", description: "Fights infections" },
+        { name: "Fenugreek", image: "images/fenugreek.jpg", link: "fenugreek.html", description: "Improves digestion" },
+        { name: "Ginger", image: "images/ginger.jpg", link: "ginger.html", description: "Helps reduce nausea" },
+        { name: "Lavender", image: "images/lavender.jpg", link: "lavender.html", description: "Promotes calmness" },
+        { name: "Neem", image: "images/neem.jpg", link: "neem.html", description: "Natural antiseptic" },
+        { name: "Tulsi", image: "images/tulsi.jpg", link: "tulsi.html", description: "Helps relieve stress" }
+    ];
+
+    const category1 = document.getElementById('category1');
+    const category2 = document.getElementById('category2');
+    const category3 = document.getElementById('category3');
+
+    function displayPlants() {
+        plants.forEach(plant => {
+            const plantItem = document.createElement('div');
+            plantItem.className = 'plant-item';
+            plantItem.innerHTML = `
+                <a href="${plant.link}">
+                    <img src="${plant.image}" alt="${plant.name}">
+                    <h3>${plant.name}</h3>
+                    <p>${plant.description}</p>
+                </a>
+            `;
+            const firstLetter = plant.name[0].toUpperCase();
+            if (firstLetter >= 'A' && firstLetter <= 'F') {
+                category1.appendChild(plantItem);
+            } else if (firstLetter >= 'G' && firstLetter <= 'M') {
+                category2.appendChild(plantItem);
+            } else {
+                category3.appendChild(plantItem);
+            }
+        });
+    }
+
+    displayPlants();
+
+    // Search function
+    function searchPlants() {
+        const query = document.getElementById('searchBar').value.toLowerCase();
+        const filteredPlants = plants.filter(plant => plant.name.toLowerCase().includes(query));
+        category1.innerHTML = '';
+        category2.innerHTML = '';
+        category3.innerHTML = '';
+
+        filteredPlants.forEach(plant => {
+            const plantItem = document.createElement('div');
+            plantItem.className = 'plant-item';
+            plantItem.innerHTML = `
+                <a href="${plant.link}">
+                    <img src="${plant.image}" alt="${plant.name}">
+                    <h3>${plant.name}</h3>
+                    <p>${plant.description}</p>
+                </a>
+            `;
+            const firstLetter = plant.name[0].toUpperCase();
+            if (firstLetter >= 'A' && firstLetter <= 'F') {
+                category1.appendChild(plantItem);
+            } else if (firstLetter >= 'G' && firstLetter <= 'M') {
+                category2.appendChild(plantItem);
+            } else {
+                category3.appendChild(plantItem);
+            }
+        });
+    }
+</script>
+
+</body>
+</html>

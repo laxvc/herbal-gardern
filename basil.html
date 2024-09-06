@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Basil - 3D Herbal Garden</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Style the container and table */
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+        }
+
+        #basil-model-container {
+            width: 100%; /* Adjust width */
+            height: 800px; /* Adjust height */
+            margin: 20px auto; /* Center container */
+            position: relative;
+        }
+
+        #basil-model {
+            width: 100%;
+            height: 100%;
+        }
+
+        .content {
+            padding: 20px;
+            background: #ffffff;
+            border-top: 1px solid #dddddd;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        table, th, td {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        td {
+            background-color: #f9f9f9;
+        }
+
+        h1, h2 {
+            color: #4CAF50;
+        }
+
+        p {
+            font-size: 1.2em;
+            line-height: 1.5em;
+        }
+    </style>
+    <!-- Include Three.js and GLTFLoader for GLB model -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128/examples/js/loaders/GLTFLoader.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128/examples/js/controls/OrbitControls.js"></script>
+</head>
+<body>
+    <h1>Basil - 3D Model</h1>
+    <div id="basil-model-container">
+        <div id="basil-model"></div>
+    </div>
+
+    <div class="content">
+        <!-- Basil Benefits Section -->
+        <h2>What is Basil?</h2>
+        <p>
+            Basil is a widely used herb known for its aromatic leaves and medicinal properties. It is used in various cuisines and traditional medicine for its anti-inflammatory, antioxidant, and immune-boosting benefits.
+        </p>
+
+        <!-- Benefits Table -->
+        <h2>Benefits of Basil in Traditional and Modern Medicine</h2>
+        <table>
+            <tr>
+                <th>Benefit</th>
+                <th>Traditional Use</th>
+                <th>Modern Medicine</th>
+            </tr>
+            <tr>
+                <td>Anti-inflammatory</td>
+                <td>Used to reduce inflammation and relieve pain.</td>
+                <td>Contains compounds that help in reducing inflammation and may assist with conditions like arthritis.</td>
+            </tr>
+            <tr>
+                <td>Antioxidant</td>
+                <td>Consumed for its antioxidant properties to support overall health.</td>
+                <td>Rich in antioxidants, which help combat oxidative stress and support healthy aging.</td>
+            </tr>
+            <tr>
+                <td>Immune Support</td>
+                <td>Traditionally used to boost the immune system and prevent infections.</td>
+                <td>Contains compounds that enhance immune response and offer protection against various pathogens.</td>
+            </tr>
+            <tr>
+                <td>Digestive Health</td>
+                <td>Used to improve digestion and alleviate gastrointestinal discomfort.</td>
+                <td>Supports digestive health and may help with conditions like indigestion and nausea.</td>
+            </tr>
+            <tr>
+                <td>Stress Relief</td>
+                <td>Consumed to help manage stress and anxiety.</td>
+                <td>May help in reducing stress and anxiety through its adaptogenic properties.</td>
+            </tr>
+        </table>
+    </div>
+
+    <!-- 3D Model Script -->
+    <script>
+        // Initialize the scene
+        const scene = new THREE.Scene();
+        scene.background = new THREE.Color(0xf0f0f0); // Light grey background
+
+        // Initialize the camera
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        camera.position.set(0, 0, 5); // Adjust camera position
+
+        // Initialize the renderer
+        const renderer = new THREE.WebGLRenderer({ antialias: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.getElementById('basil-model').appendChild(renderer.domElement);
+
+        // Initialize OrbitControls
+        const controls = new THREE.OrbitControls(camera, renderer.domElement);
+        controls.enableZoom = true; // Enable zooming
+        controls.enablePan = false; // Disable panning if you prefer
+
+        // Lighting setup
+        const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+        directionalLight.position.set(5, 5, 5).normalize();
+        scene.add(directionalLight);
+
+        const ambientLight = new THREE.AmbientLight(0x404040); // Soft light
+        scene.add(ambientLight);
+
+        // Load the GLTF model
+        const loader = new THREE.GLTFLoader();
+        loader.load('models/basil.glb', function(gltf) {
+            const model = gltf.scene;
+            model.scale.set(0.3, 0.3, 0.3); // Adjust scale of the model
+            model.position.set(0, -0.5, 0); // Position the model within the view
+            scene.add(model);
+
+            // Adjust controls after model is loaded
+            controls.update();
+
+            animate(); // Start the animation loop after model is loaded
+        }, undefined, function(error) {
+            console.error('An error occurred while loading the model:', error);
+        });
+
+        // Animation loop
+        function animate() {
+            requestAnimationFrame(animate);
+            renderer.render(scene, camera);
+        }
+
+        // Handle window resize
+        window.addEventListener('resize', function() {
+            const width = window.innerWidth;
+            const height = window.innerHeight;
+            renderer.setSize(width, height);
+            camera.aspect = width / height;
+            camera.updateProjectionMatrix();
+        });
+    </script>
+
+</body>
+</html>

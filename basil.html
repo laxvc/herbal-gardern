@@ -6,7 +6,6 @@
     <title>Basil - 3D Herbal Garden</title>
     <link rel="stylesheet" href="styles.css">
     <style>
-        /* Style the container and table */
         body {
             margin: 0;
             font-family: Arial, sans-serif;
@@ -14,9 +13,9 @@
         }
 
         #basil-model-container {
-            width: 100%; /* Adjust width */
-            height: 800px; /* Adjust height */
-            margin: 20px auto; /* Center container */
+            width: 100%;
+            height: 40vh; /* Smaller height for the loading screen */
+            margin: 20px auto;
             position: relative;
         }
 
@@ -25,40 +24,25 @@
             height: 100%;
         }
 
+        #full-screen-toggle {
+            margin: 20px auto;
+            display: block;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
         .content {
             padding: 20px;
             background: #ffffff;
             border-top: 1px solid #dddddd;
         }
 
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-        }
-
-        table, th, td {
-            border: 1px solid #dddddd;
-            text-align: left;
-            padding: 8px;
-        }
-
-        th {
-            background-color: #4CAF50;
-            color: white;
-        }
-
-        td {
-            background-color: #f9f9f9;
-        }
-
-        h1, h2 {
+        h1 {
             color: #4CAF50;
-        }
-
-        p {
-            font-size: 1.2em;
-            line-height: 1.5em;
         }
     </style>
     <!-- Include Three.js and GLTFLoader for GLB model -->
@@ -68,19 +52,18 @@
 </head>
 <body>
     <h1>Basil - 3D Model</h1>
+    <button id="full-screen-toggle">Toggle Full Screen</button>
     <div id="basil-model-container">
         <div id="basil-model"></div>
     </div>
 
     <div class="content">
-        <!-- Basil Benefits Section -->
+        <!-- Basil Details -->
         <h2>What is Basil?</h2>
-        <p>
-            Basil is a widely used herb known for its aromatic leaves and medicinal properties. It is used in various cuisines and traditional medicine for its anti-inflammatory, antioxidant, and immune-boosting benefits.
-        </p>
+        <p>Basil is a fragrant herb used in various cuisines around the world. It is known for its aromatic leaves and has numerous culinary and medicinal uses. Basil is a key ingredient in dishes such as pesto and is valued for its flavor and health benefits.</p>
 
-        <!-- Benefits Table -->
         <h2>Benefits of Basil in Traditional and Modern Medicine</h2>
+        <!-- Benefits Table -->
         <table>
             <tr>
                 <th>Benefit</th>
@@ -88,29 +71,29 @@
                 <th>Modern Medicine</th>
             </tr>
             <tr>
-                <td>Anti-inflammatory</td>
-                <td>Used to reduce inflammation and relieve pain.</td>
-                <td>Contains compounds that help in reducing inflammation and may assist with conditions like arthritis.</td>
-            </tr>
-            <tr>
                 <td>Antioxidant</td>
-                <td>Consumed for its antioxidant properties to support overall health.</td>
-                <td>Rich in antioxidants, which help combat oxidative stress and support healthy aging.</td>
+                <td>Used to combat oxidative stress and support overall health.</td>
+                <td>Rich in antioxidants, which help protect cells from damage and support immune function.</td>
             </tr>
             <tr>
-                <td>Immune Support</td>
-                <td>Traditionally used to boost the immune system and prevent infections.</td>
-                <td>Contains compounds that enhance immune response and offer protection against various pathogens.</td>
+                <td>Anti-inflammatory</td>
+                <td>Applied to reduce inflammation and irritation.</td>
+                <td>Proven to have anti-inflammatory effects that help alleviate conditions like arthritis.</td>
             </tr>
             <tr>
                 <td>Digestive Health</td>
                 <td>Used to improve digestion and alleviate gastrointestinal discomfort.</td>
-                <td>Supports digestive health and may help with conditions like indigestion and nausea.</td>
+                <td>Commonly used in supplements to support digestive health and reduce bloating.</td>
+            </tr>
+            <tr>
+                <td>Antimicrobial</td>
+                <td>Applied to wounds and infections for its antimicrobial properties.</td>
+                <td>Used in topical applications to help prevent infections and support wound healing.</td>
             </tr>
             <tr>
                 <td>Stress Relief</td>
-                <td>Consumed to help manage stress and anxiety.</td>
-                <td>May help in reducing stress and anxiety through its adaptogenic properties.</td>
+                <td>Used in traditional medicine to reduce stress and anxiety.</td>
+                <td>Modern studies suggest that basil may help manage stress and improve mental well-being.</td>
             </tr>
         </table>
     </div>
@@ -127,28 +110,32 @@
 
         // Initialize the renderer
         const renderer = new THREE.WebGLRenderer({ antialias: true });
-        renderer.setSize(window.innerWidth, window.innerHeight);
-        document.getElementById('basil-model').appendChild(renderer.domElement);
+        const container = document.getElementById('basil-model');
+        renderer.setSize(container.clientWidth, container.clientHeight);
+        container.appendChild(renderer.domElement);
+
+        // Dynamic resolution adjustment
+        renderer.setPixelRatio(window.devicePixelRatio); // Adjust resolution based on device
 
         // Initialize OrbitControls
         const controls = new THREE.OrbitControls(camera, renderer.domElement);
-        controls.enableZoom = true; // Enable zooming
-        controls.enablePan = false; // Disable panning if you prefer
+        controls.enableZoom = true;
+        controls.enablePan = false;
 
         // Lighting setup
         const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
         directionalLight.position.set(5, 5, 5).normalize();
         scene.add(directionalLight);
 
-        const ambientLight = new THREE.AmbientLight(0x404040); // Soft light
+        const ambientLight = new THREE.AmbientLight(0x404040);
         scene.add(ambientLight);
 
         // Load the GLTF model
         const loader = new THREE.GLTFLoader();
         loader.load('models/basil.glb', function(gltf) {
             const model = gltf.scene;
-            model.scale.set(0.3, 0.3, 0.3); // Adjust scale of the model
-            model.position.set(0, -0.5, 0); // Position the model within the view
+            model.scale.set(0.2, 0.2, 0.2); // Adjust scale for a smaller model
+            model.position.set(0, -0.5, 0);
             scene.add(model);
 
             // Adjust controls after model is loaded
@@ -167,13 +154,25 @@
 
         // Handle window resize
         window.addEventListener('resize', function() {
-            const width = window.innerWidth;
-            const height = window.innerHeight;
+            const width = container.clientWidth;
+            const height = container.clientHeight;
             renderer.setSize(width, height);
             camera.aspect = width / height;
             camera.updateProjectionMatrix();
         });
+
+        // Full-screen toggle button functionality
+        document.getElementById('full-screen-toggle').addEventListener('click', () => {
+            if (document.fullscreenElement) {
+                document.exitFullscreen();
+            } else {
+                document.getElementById('basil-model-container').requestFullscreen();
+            }
+        });
     </script>
+</body>
+</html>
+
 
 </body>
 </html>

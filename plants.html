@@ -10,13 +10,15 @@
             font-family: 'Arial', sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f0f4f7;
+            background: linear-gradient(to bottom, #ffffff, #e8f5e9);
+            color: #333;
         }
         header {
             background-color: #4CAF50;
             padding: 20px;
             text-align: center;
             color: white;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
         header h1 {
             margin: 0;
@@ -26,20 +28,24 @@
             text-align: center;
             padding: 40px 20px;
             background-color: #e8f5e9;
+            border-bottom: 2px solid #4CAF50;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
         .plant-search input {
-            width: 50%;
-            max-width: 500px;
+            width: 80%;
+            max-width: 600px;
             padding: 15px;
             font-size: 1.2em;
             margin-right: 10px;
             border-radius: 8px;
             border: 2px solid #4CAF50;
-            transition: border-color 0.3s;
+            transition: border-color 0.3s, box-shadow 0.3s;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
         .plant-search input:focus {
             border-color: #45a049;
             outline: none;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
         }
         .plant-search button {
             padding: 15px 25px;
@@ -49,18 +55,22 @@
             border: none;
             border-radius: 8px;
             cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
         }
         .plant-search button:hover {
-            background-color: #45a049;
+            background-color: #388E3C;
+            transform: scale(1.05);
         }
         .plant-category {
-            margin-top: 40px;
+            margin: 40px auto;
             padding: 20px;
+            max-width: 1200px;
         }
         .plant-category h2 {
             text-align: center;
             font-size: 2em;
             color: #333;
+            margin-bottom: 20px;
         }
         .plant-list {
             display: flex;
@@ -70,7 +80,7 @@
             padding: 40px 20px;
         }
         .plant-item {
-            width: 200px;
+            width: 250px;
             text-align: center;
             background-color: white;
             border-radius: 12px;
@@ -83,8 +93,8 @@
         }
         .plant-item img {
             width: 100%;
-            height: 150px; /* Set a fixed height for all images */
-            object-fit: cover; /* Ensures the images fit into the box while maintaining aspect ratio */
+            height: 200px;
+            object-fit: cover;
             border-radius: 12px 12px 0 0;
             transition: transform 0.3s;
         }
@@ -92,7 +102,7 @@
             transform: scale(1.1);
         }
         .plant-item h3 {
-            margin-top: 10px;
+            margin: 10px 0;
             font-size: 1.5em;
             color: #333;
         }
@@ -109,10 +119,11 @@
             color: white;
             text-decoration: none;
             border-radius: 8px;
-            transition: background-color 0.3s;
+            transition: background-color 0.3s, transform 0.3s;
         }
         .learn-more-btn:hover {
             background-color: #388E3C;
+            transform: scale(1.05);
         }
         footer {
             background-color: #4CAF50;
@@ -122,12 +133,50 @@
             position: fixed;
             bottom: 0;
             width: 100%;
+            box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-content {
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+            width: 80%;
+            max-width: 600px;
+            position: relative;
+        }
+        .modal-content img {
+            width: 100%;
+            border-radius: 10px;
+        }
+        .modal-close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 1.5em;
+            cursor: pointer;
+        }
+        .modal-close:hover {
+            color: #f00;
         }
 
         /* Responsive Styles */
         @media (max-width: 768px) {
             .plant-search input {
-                width: 80%;
+                width: 90%;
                 font-size: 1em;
             }
             .plant-search button {
@@ -170,6 +219,16 @@
     <p>Explore more plants and learn about their medicinal benefits!</p>
 </footer>
 
+<!-- Modal -->
+<div id="plantModal" class="modal">
+    <div class="modal-content">
+        <span class="modal-close" onclick="closeModal()">&times;</span>
+        <img id="modalImage" src="" alt="">
+        <h3 id="modalTitle"></h3>
+        <p id="modalDescription"></p>
+    </div>
+</div>
+
 <script>
     const plants = [
         { name: "Aloe Vera", image: "images/aloe-vera.jpg", link: "aloe-vera.html", description: "Soothing skin care remedy" },
@@ -198,11 +257,9 @@
             const plantItem = document.createElement('div');
             plantItem.className = 'plant-item';
             plantItem.innerHTML = `
-                <a href="${plant.link}">
-                    <img src="${plant.image}" alt="${plant.name}">
-                    <h3>${plant.name}</h3>
-                    <p>${plant.description}</p>
-                </a>
+                <img src="${plant.image}" alt="${plant.name}" onclick="openModal('${plant.name}', '${plant.image}', '${plant.description}')">
+                <h3>${plant.name}</h3>
+                <p>${plant.description}</p>
                 <a href="${plant.link}" class="learn-more-btn">Learn More</a>
             `;
 
@@ -224,7 +281,25 @@
         const filteredPlants = plants.filter(plant => plant.name.toLowerCase().includes(query));
         displayPlants(filteredPlants);
     }
+
+    function openModal(name, image, description) {
+        document.getElementById('modalTitle').textContent = name;
+        document.getElementById('modalImage').src = image;
+        document.getElementById('modalDescription').textContent = description;
+        document.getElementById('plantModal').style.display = 'flex';
+    }
+
+    function closeModal() {
+        document.getElementById('plantModal').style.display = 'none';
+    }
+
+    window.onclick = function(event) {
+        if (event.target === document.getElementById('plantModal')) {
+            closeModal();
+        }
+    }
 </script>
 
 </body>
 </html>
+

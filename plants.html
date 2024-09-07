@@ -275,11 +275,7 @@
         const items = document.querySelectorAll('.plant-item');
         items.forEach(item => {
             const name = item.querySelector('h3').innerText.toLowerCase();
-            if (name.includes(query)) {
-                item.style.display = 'block';
-            } else {
-                item.style.display = 'none';
-            }
+            item.style.display = name.includes(query) ? 'block' : 'none';
         });
     }
 
@@ -288,3 +284,4 @@
 
 </body>
 </html>
+

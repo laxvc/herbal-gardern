@@ -6,18 +6,22 @@
     <title>Dandelion - 3D Herbal Garden</title>
     <link rel="stylesheet" href="styles.css">
     <style>
-        /* Style the container and table */
         body {
             margin: 0;
             font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
+            background-color: #f5f5f5;
+            color: #333;
         }
 
         #dandelion-model-container {
-            width: 100%; /* Adjust width */
-            height: 800px; /* Adjust height */
-            margin: 20px auto; /* Center container */
+            width: 100%;
+            height: 40vh; /* Adjusted height for better mobile viewing */
+            margin: 20px auto;
             position: relative;
+            background-color: #fff; /* White background for the model container */
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            overflow: hidden;
         }
 
         #dandelion-model {
@@ -25,10 +29,33 @@
             height: 100%;
         }
 
+        #full-screen-toggle {
+            margin: 20px auto;
+            display: block;
+            padding: 10px 20px;
+            background-color: #333;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        #full-screen-toggle:hover {
+            background-color: #555;
+        }
+
         .content {
             padding: 20px;
-            background: #ffffff;
-            border-top: 1px solid #dddddd;
+            background: #fff;
+            border-top: 1px solid #ddd;
+            max-width: 1000px;
+            margin: auto;
+        }
+
+        h1, h2 {
+            color: #000;
         }
 
         table {
@@ -38,27 +65,32 @@
         }
 
         table, th, td {
-            border: 1px solid #dddddd;
+            border: 1px solid #ddd;
+        }
+
+        th, td {
+            padding: 10px;
             text-align: left;
-            padding: 8px;
         }
 
         th {
-            background-color: #4CAF50;
-            color: white;
+            background-color: #333;
+            color: #fff;
         }
 
-        td {
-            background-color: #f9f9f9;
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
         }
 
-        h1, h2 {
-            color: #4CAF50;
-        }
+        @media (max-width: 768px) {
+            #dandelion-model-container {
+                height: 30vh; /* Adjust height for smaller screens */
+            }
 
-        p {
-            font-size: 1.2em;
-            line-height: 1.5em;
+            #full-screen-toggle {
+                font-size: 14px;
+                padding: 8px 16px;
+            }
         }
     </style>
     <!-- Include Three.js and GLTFLoader for GLB model -->
@@ -68,18 +100,17 @@
 </head>
 <body>
     <h1>Dandelion - 3D Model</h1>
+    <button id="full-screen-toggle">Toggle Full Screen</button>
     <div id="dandelion-model-container">
         <div id="dandelion-model"></div>
     </div>
 
     <div class="content">
-        <!-- Dandelion Benefits Section -->
         <h2>What is Dandelion?</h2>
         <p>
-            Dandelion is a common plant known for its medicinal properties. It has been used traditionally for its diuretic effects, digestive benefits, and detoxifying properties. The entire plant, including roots, leaves, and flowers, has therapeutic uses.
+            Dandelion (Taraxacum officinale) is a common plant with a variety of medicinal uses. Known for its diuretic effects, digestive benefits, and detoxifying properties, dandelion's roots, leaves, and flowers have therapeutic applications.
         </p>
 
-        <!-- Benefits Table -->
         <h2>Benefits of Dandelion in Traditional and Modern Medicine</h2>
         <table>
             <tr>
@@ -89,27 +120,27 @@
             </tr>
             <tr>
                 <td>Diuretic</td>
-                <td>Used to promote urine production and reduce fluid retention.</td>
+                <td>Promotes urine production and reduces fluid retention.</td>
                 <td>Commonly used in herbal remedies to support kidney function and manage water retention.</td>
             </tr>
             <tr>
                 <td>Digestive Health</td>
-                <td>Consumed to aid digestion and improve appetite.</td>
-                <td>Supports digestive health and may help with conditions like indigestion and bloating.</td>
+                <td>Aids digestion and improves appetite.</td>
+                <td>Supports digestive health and may help with indigestion and bloating.</td>
             </tr>
             <tr>
                 <td>Detoxification</td>
-                <td>Used to help detoxify the liver and improve overall health.</td>
-                <td>Often included in detox programs and supplements to support liver health and cleanse the body.</td>
+                <td>Helps detoxify the liver and improve overall health.</td>
+                <td>Included in detox programs and supplements to support liver health and cleanse the body.</td>
             </tr>
             <tr>
                 <td>Anti-inflammatory</td>
-                <td>Applied topically or consumed to reduce inflammation.</td>
+                <td>Reduces inflammation when applied topically or consumed.</td>
                 <td>Contains compounds that may help manage inflammatory conditions and support joint health.</td>
             </tr>
             <tr>
                 <td>Skin Health</td>
-                <td>Used to treat skin conditions like acne and eczema.</td>
+                <td>Treats skin conditions like acne and eczema.</td>
                 <td>Included in skincare products for its potential to support skin health and soothe irritation.</td>
             </tr>
         </table>
@@ -119,28 +150,32 @@
     <script>
         // Initialize the scene
         const scene = new THREE.Scene();
-        scene.background = new THREE.Color(0xf0f0f0); // Light grey background
+        scene.background = new THREE.Color(0xffffff); // White background for the scene
 
         // Initialize the camera
-        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 800);
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
         camera.position.set(0, 0, 5); // Adjust camera position
 
         // Initialize the renderer
         const renderer = new THREE.WebGLRenderer({ antialias: true });
-        renderer.setSize(window.innerWidth, window.innerHeight);
-        document.getElementById('dandelion-model').appendChild(renderer.domElement);
+        const container = document.getElementById('dandelion-model');
+        renderer.setSize(container.clientWidth, container.clientHeight);
+        container.appendChild(renderer.domElement);
+
+        // Dynamic resolution adjustment
+        renderer.setPixelRatio(window.devicePixelRatio); // Adjust resolution based on device
 
         // Initialize OrbitControls
         const controls = new THREE.OrbitControls(camera, renderer.domElement);
-        controls.enableZoom = true; // Enable zooming
-        controls.enablePan = false; // Disable panning if you prefer
+        controls.enableZoom = true;
+        controls.enablePan = false;
 
         // Lighting setup
         const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
         directionalLight.position.set(5, 5, 5).normalize();
         scene.add(directionalLight);
 
-        const ambientLight = new THREE.AmbientLight(0x404040); // Soft light
+        const ambientLight = new THREE.AmbientLight(0x404040);
         scene.add(ambientLight);
 
         // Load the GLTF model
@@ -148,7 +183,7 @@
         loader.load('models/dandelion.glb', function(gltf) {
             const model = gltf.scene;
             model.scale.set(0.3, 0.3, 0.3); // Adjust scale of the model
-            model.position.set(0, -0.5, 0); // Position the model within the view
+            model.position.set(0, -0.5, 0);
             scene.add(model);
 
             // Adjust controls after model is loaded
@@ -167,13 +202,21 @@
 
         // Handle window resize
         window.addEventListener('resize', function() {
-            const width = window.innerWidth;
-            const height = window.innerHeight;
+            const width = container.clientWidth;
+            const height = container.clientHeight;
             renderer.setSize(width, height);
             camera.aspect = width / height;
             camera.updateProjectionMatrix();
         });
-    </script>
 
+        // Full-screen toggle button functionality
+        document.getElementById('full-screen-toggle').addEventListener('click', () => {
+            if (document.fullscreenElement) {
+                document.exitFullscreen();
+            } else {
+                document.getElementById('dandelion-model-container').requestFullscreen();
+            }
+        });
+    </script>
 </body>
 </html>

@@ -10,28 +10,44 @@
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f0f0f0;
+            background: linear-gradient(to bottom, #ffffff, #f0f0f0);
+            color: #333;
+        }
+
+        header {
+            background-color: #333;
+            padding: 20px;
+            text-align: center;
+            color: white;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.5em;
         }
 
         .contact-container {
-            width: 100%;
+            width: 90%;
             max-width: 800px;
             margin: 0 auto;
             padding: 20px;
             background-color: #fff;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            margin-top: 50px;
-            border-radius: 8px;
+            border-radius: 12px;
+            margin-top: 30px;
         }
 
         h1 {
             text-align: center;
-            color: #4CAF50;
+            color: #333;
+            margin-bottom: 20px;
         }
 
         p {
             text-align: center;
             font-size: 1.2em;
+            color: #555;
         }
 
         form {
@@ -51,7 +67,7 @@
             font-size: 1em;
             margin-bottom: 20px;
             border: 1px solid #ddd;
-            border-radius: 4px;
+            border-radius: 12px;
             width: 100%;
             box-sizing: border-box;
         }
@@ -64,15 +80,17 @@
         button {
             padding: 10px 20px;
             font-size: 1.2em;
-            background-color: #4CAF50;
+            background-color: #333;
             color: white;
             border: none;
-            border-radius: 4px;
+            border-radius: 12px;
             cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
         }
 
         button:hover {
-            background-color: #45a049;
+            background-color: #555;
+            transform: scale(1.05);
         }
 
         .contact-info {
@@ -81,40 +99,61 @@
         }
 
         .contact-info h2 {
-            color: #4CAF50;
+            color: #333;
         }
 
         .contact-info p {
             font-size: 1.1em;
+            color: #555;
+        }
+
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.2);
         }
     </style>
 </head>
 <body>
 
-    <div class="contact-container">
-        <h1>Contact Us</h1>
-        <p>We would love to hear from you! Please fill out the form below and we will get in touch with you shortly.</p>
-        
-        <form action="#" method="post">
-            <label for="name">Your Name</label>
-            <input type="text" id="name" name="name" placeholder="Enter your name" required>
+<header>
+    <h1>3D Herbal Garden</h1>
+</header>
 
-            <label for="email">Your Email</label>
-            <input type="email" id="email" name="email" placeholder="Enter your email address" required>
+<div class="contact-container">
+    <h1>Contact Us</h1>
+    <p>We would love to hear from you! Please fill out the form below and we will get in touch with you shortly.</p>
+    
+    <form action="#" method="post">
+        <label for="name">Your Name</label>
+        <input type="text" id="name" name="name" placeholder="Enter your name" required>
 
-            <label for="message">Your Message</label>
-            <textarea id="message" name="message" placeholder="Enter your message here..." required></textarea>
+        <label for="email">Your Email</label>
+        <input type="email" id="email" name="email" placeholder="Enter your email address" required>
 
-            <button type="submit">Send Message</button>
-        </form>
+        <label for="message">Your Message</label>
+        <textarea id="message" name="message" placeholder="Enter your message here..." required></textarea>
 
-        <div class="contact-info">
-            <h2>Our Contact Information</h2>
-            <p>Email: myselfsuryaaz@gmail.com</p>
-            <p>Phone: +91 (123) 456-7890</p>
-            <p>Address: ------</p>
-        </div>
+        <button type="submit">Send Message</button>
+    </form>
+
+    <div class="contact-info">
+        <h2>Our Contact Information</h2>
+        <p>Email: myselfsuryaaz@gmail.com</p>
+        <p>Phone: +91 (123) 456-7890</p>
+        <p>Address: ------</p>
     </div>
+</div>
+
+<footer>
+    <p>&copy; 2024 3D Herbal Garden. All rights reserved.</p>
+</footer>
 
 </body>
 </html>
+

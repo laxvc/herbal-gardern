@@ -18,7 +18,7 @@ body {
     position: fixed;
     top: 0;
     width: 100%;
-    background-color: #e0e0e0; /* Light grey */
+    background-color: #f5f5f5; /* Light grey */
     display: flex;
     justify-content: space-between;
     padding: 15px 30px;
@@ -34,7 +34,7 @@ body {
 }
 
 .navbar a:hover {
-    background-color: #c0c0c0; /* Slightly darker grey */
+    background-color: #ddd; /* Slightly darker grey */
     border-radius: 5px;
 }
 
@@ -45,46 +45,48 @@ body {
 
 /* Hero Section */
 .hero {
-    height: 100vh;
+    height: 60vh; /* Adjusted for better mobile visibility */
     background: url('images/hero-background.jpg') no-repeat center center/cover;
     display: flex;
     justify-content: center;
     align-items: center;
     text-align: center;
     color: white;
+    padding: 20px;
 }
 
 .hero h1 {
-    font-size: 4em;
+    font-size: 2.5em; /* Adjusted for better mobile visibility */
     margin: 0;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
 .hero p {
-    font-size: 1.5em;
+    font-size: 1.2em; /* Adjusted for better mobile visibility */
     margin-top: 20px;
     text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
 }
 
 /* Featured Plants Section */
 .featured-plants {
-    padding: 60px 20px;
+    padding: 40px 20px;
     text-align: center;
 }
 
 .featured-plants h2 {
-    margin-bottom: 40px;
-    font-size: 2.5em;
+    margin-bottom: 20px;
+    font-size: 2em;
 }
 
 .plant-card {
     display: inline-block;
-    width: 30%;
-    margin: 0 10px 40px;
+    width: 45%; /* Adjusted for better mobile visibility */
+    margin: 0 10px 20px;
     text-align: center;
     transition: transform 0.3s, box-shadow 0.3s; /* Add box-shadow transition */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     backdrop-filter: blur(5px); /* Adds blur effect to background */
+    background-color: white;
 }
 
 .plant-card:hover {
@@ -99,7 +101,7 @@ body {
 
 .plant-card h3 {
     margin-top: 15px;
-    font-size: 1.8em;
+    font-size: 1.5em; /* Adjusted for better mobile visibility */
 }
 
 /* Remove underline from plant card links */
@@ -109,53 +111,48 @@ body {
 }
 
 .plant-card h3 a:hover {
-    color: #4CAF50; /* Change color on hover */
+    color: #333; /* Keep color consistent */
 }
 
 /* Footer Styles */
 .footer {
     background-color: #333;
     color: white;
-    padding: 40px;
+    padding: 20px;
     text-align: center;
-}
-
-.footer p {
-    margin: 0;
-    font-size: 1.2em;
 }
 
 /* Plant Search Page */
 .plant-search {
     text-align: center;
     padding: 40px 20px;
-    background-color: #f9f9f9; /* Very light grey */
-    border-bottom: 2px solid #e0e0e0; /* Light grey */
+    background-color: #f5f5f5; /* Light grey */
+    border-bottom: 2px solid #ddd; /* Light grey */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .plant-search input {
-    width: 80%;
+    width: 90%;
     max-width: 600px;
     padding: 15px;
-    font-size: 1.2em;
+    font-size: 1em;
     margin-right: 10px;
     border-radius: 12px; /* Rounded corners */
-    border: 2px solid #e0e0e0; /* Light grey */
+    border: 2px solid #ddd; /* Light grey */
     transition: border-color 0.3s, box-shadow 0.3s;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .plant-search input:focus {
-    border-color: #c0c0c0; /* Slightly darker grey */
+    border-color: #ccc; /* Slightly darker grey */
     outline: none;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
 .plant-search button {
     padding: 15px 25px;
-    font-size: 1.2em;
-    background-color: #e0e0e0; /* Light grey */
+    font-size: 1em;
+    background-color: #f5f5f5; /* Light grey */
     color: #333;
     border: none;
     border-radius: 12px; /* Rounded corners */
@@ -164,19 +161,19 @@ body {
 }
 
 .plant-search button:hover {
-    background-color: #c0c0c0; /* Slightly darker grey */
+    background-color: #ddd; /* Slightly darker grey */
     transform: scale(1.05);
 }
 
 .plant-category {
-    margin: 40px auto;
+    margin: 20px auto;
     padding: 20px;
     max-width: 1200px;
 }
 
 .plant-category h2 {
     text-align: center;
-    font-size: 2em;
+    font-size: 1.8em;
     color: #333;
     margin-bottom: 20px;
 }
@@ -185,19 +182,21 @@ body {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 30px;
-    padding: 40px 20px;
+    gap: 20px;
+    padding: 20px;
 }
 
 /* Plant Item */
 .plant-item {
-    width: 250px;
+    width: 100%;
+    max-width: 250px;
     text-align: center;
     background-color: white;
     border-radius: 20px; /* Rounder corners */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s, box-shadow 0.3s;
     backdrop-filter: blur(5px); /* Adds blur effect to background */
+    margin: 10px;
 }
 
 .plant-item:hover {
@@ -233,7 +232,7 @@ body {
     display: inline-block;
     margin-top: 10px;
     padding: 10px 20px;
-    background-color: #e0e0e0; /* Light grey */
+    background-color: #f5f5f5; /* Light grey */
     color: #333;
     text-decoration: none;
     border-radius: 12px; /* Rounded corners */
@@ -241,13 +240,13 @@ body {
 }
 
 .learn-more-btn:hover {
-    background-color: #c0c0c0; /* Slightly darker grey */
+    background-color: #ddd; /* Slightly darker grey */
     transform: scale(1.05);
 }
 
 /* Footer */
 footer {
-    background-color: #e0e0e0; /* Light grey */
+    background-color: #f5f5f5; /* Light grey */
     color: #333;
     text-align: center;
     padding: 10px;
@@ -305,8 +304,8 @@ footer {
     left: 50%;
     width: 80px;
     height: 80px;
-    border: 8px solid #e0e0e0; /* Light grey */
-    border-top: 8px solid #4CAF50; /* Green */
+    border: 8px solid #f5f5f5; /* Light grey */
+    border-top: 8px solid #333; /* Black */
     border-radius: 50%;
     animation: spin 1s linear infinite;
     transform: translate(-50%, -50%);
@@ -319,6 +318,33 @@ footer {
 
 /* Responsive Styles */
 @media (max-width: 768px) {
+    .navbar {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .navbar a {
+        padding: 10px;
+        font-size: 1em;
+    }
+
+    .hero {
+        height: 50vh; /* Adjusted for better mobile visibility */
+    }
+
+    .hero h1 {
+        font-size: 2em;
+    }
+
+    .hero p {
+        font-size: 1em;
+    }
+
+    .plant-card {
+        width: 90%;
+        margin: 10px 0;
+    }
+
     .plant-search input {
         width: 90%;
         font-size: 1em;
@@ -327,18 +353,5 @@ footer {
     .plant-search button {
         font-size: 1em;
         padding: 12px 20px;
-    }
-
-    .plant-card {
-        width: 90%;
-        margin: 10px 0;
-    }
-
-    .hero h1 {
-        font-size: 2.5em;
-    }
-
-    .hero p {
-        font-size: 1.2em;
     }
 }

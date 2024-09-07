@@ -15,10 +15,13 @@
 
         #aloe-vera-model-container {
             width: 100%;
-            height: 40vh; /* Smaller height for the loading screen */
+            height: 40vh; /* Adjust height for smaller screens */
             margin: 20px auto;
             position: relative;
-            background-color: #000; /* Black background for the model container */
+            background-color: #fff; /* White background for the model container */
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            overflow: hidden;
         }
 
         #aloe-vera-model {
@@ -104,7 +107,8 @@
 
     <div class="content">
         <h2>What is Aloe Vera?</h2>
-        <p>Aloe Vera is a succulent plant that has been used for centuries due to its wide range of medicinal properties. Native to the Arabian Peninsula, it has been cultivated around the world for its soothing gel and latex. Aloe Vera gel is often used in topical treatments for its healing and moisturizing benefits, while its latex can be used as a laxative.</p>
+        <p>Aloe Vera (Aloe barbadensis) is a succulent plant known for its medicinal and cosmetic benefits. Its leaves contain a gel-like substance that is commonly used in skincare products to soothe and hydrate the skin. Aloe Vera is also used for its potential health benefits, including its ability to aid in digestion and promote wound healing.</p>
+        <p>Traditionally, Aloe Vera has been used in various cultures for centuries, valued for its natural soothing properties. The plant's versatility makes it a popular choice for both home remedies and commercial products.</p>
 
         <h2>Benefits of Aloe Vera in Traditional and Modern Medicine</h2>
         <table>
@@ -115,28 +119,28 @@
             </tr>
             <tr>
                 <td>Skin Soothing</td>
-                <td>Applied to soothe sunburns and minor burns. Often used as a natural remedy for skin irritation and dryness.</td>
-                <td>Widely used in skincare products such as lotions, creams, and gels for its anti-inflammatory and hydrating properties.</td>
+                <td>Applied topically to soothe sunburns, minor burns, and skin irritations.</td>
+                <td>Widely used in skincare products for its hydrating and anti-inflammatory properties.</td>
             </tr>
             <tr>
-                <td>Anti-inflammatory</td>
-                <td>Used in traditional medicine to reduce inflammation and irritation, especially in cases of skin conditions.</td>
-                <td>Clinically proven to reduce inflammation, making it beneficial for conditions like arthritis and psoriasis.</td>
-            </tr>
-            <tr>
-                <td>Hydration</td>
-                <td>Applied topically to moisturize and hydrate the skin. Often used in home remedies for dry and flaky skin.</td>
-                <td>Incorporated into various cosmetic and medical products for its ability to provide long-lasting moisture to the skin.</td>
+                <td>Wound Healing</td>
+                <td>Applied to wounds and cuts to speed up healing and reduce scarring.</td>
+                <td>Clinical studies support Aloe Vera's role in promoting faster healing and reducing inflammation.</td>
             </tr>
             <tr>
                 <td>Digestive Health</td>
-                <td>Consumed in the form of juice to aid digestion and relieve gastrointestinal issues. Traditional uses include treating constipation and indigestion.</td>
-                <td>Used in supplements and juices to support digestive health, with evidence supporting its efficacy in relieving constipation and promoting overall gut health.</td>
+                <td>Consumed to aid digestion and relieve gastrointestinal discomfort.</td>
+                <td>Used in supplements and juices to support digestive health and alleviate constipation.</td>
+            </tr>
+            <tr>
+                <td>Anti-inflammatory</td>
+                <td>Used to reduce inflammation in conditions like arthritis and joint pain.</td>
+                <td>Modern research confirms Aloe Vera's anti-inflammatory effects, which can help in managing chronic inflammatory conditions.</td>
             </tr>
             <tr>
                 <td>Antioxidant</td>
-                <td>Traditionally valued for its antioxidant properties to help support overall health and prevent disease.</td>
-                <td>Rich in antioxidants, Aloe Vera helps combat oxidative stress, supports immune function, and contributes to overall wellness.</td>
+                <td>Used to support overall health and combat oxidative stress.</td>
+                <td>Rich in antioxidants, Aloe Vera helps protect cells from damage and supports the immune system.</td>
             </tr>
         </table>
     </div>
@@ -145,7 +149,7 @@
     <script>
         // Initialize the scene
         const scene = new THREE.Scene();
-        scene.background = new THREE.Color(0x000000); // Black background for better contrast
+        scene.background = new THREE.Color(0xffffff); // White background for the scene
 
         // Initialize the camera
         const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);

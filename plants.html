@@ -29,11 +29,17 @@
         }
         .plant-search input {
             width: 50%;
+            max-width: 500px;
             padding: 15px;
             font-size: 1.2em;
             margin-right: 10px;
             border-radius: 8px;
             border: 2px solid #4CAF50;
+            transition: border-color 0.3s;
+        }
+        .plant-search input:focus {
+            border-color: #45a049;
+            outline: none;
         }
         .plant-search button {
             padding: 15px 25px;
@@ -78,6 +84,10 @@
         .plant-item img {
             width: 100%;
             border-radius: 12px 12px 0 0;
+            transition: transform 0.3s;
+        }
+        .plant-item:hover img {
+            transform: scale(1.1);
         }
         .plant-item h3 {
             margin-top: 10px;
@@ -98,6 +108,18 @@
             bottom: 0;
             width: 100%;
         }
+
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .plant-search input {
+                width: 80%;
+                font-size: 1em;
+            }
+            .plant-search button {
+                font-size: 1em;
+                padding: 12px 20px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -108,24 +130,24 @@
 
 <!-- Search Section -->
 <div class="plant-search">
-    <input type="text" id="searchBar" placeholder="Search for plants...">
+    <input type="text" id="searchBar" placeholder="Search for plants..." aria-label="Search for plants">
     <button onclick="searchPlants()">Search</button>
 </div>
 
 <!-- Categorized Plant Library -->
 <div class="plant-category">
     <h2>A - F</h2>
-    <div class="plant-list" id="category1"></div>
+    <div class="plant-list" id="category1" role="list"></div>
 </div>
 
 <div class="plant-category">
     <h2>G - M</h2>
-    <div class="plant-list" id="category2"></div>
+    <div class="plant-list" id="category2" role="list"></div>
 </div>
 
 <div class="plant-category">
     <h2>N - Z</h2>
-    <div class="plant-list" id="category3"></div>
+    <div class="plant-list" id="category3" role="list"></div>
 </div>
 
 <!-- Footer -->
@@ -147,12 +169,17 @@
         { name: "Tulsi", image: "images/tulsi.jpg", link: "tulsi.html", description: "Helps relieve stress" }
     ];
 
-    const category1 = document.getElementById('category1');
-    const category2 = document.getElementById('category2');
-    const category3 = document.getElementById('category3');
+    const categories = {
+        'A-F': document.getElementById('category1'),
+        'G-M': document.getElementById('category2'),
+        'N-Z': document.getElementById('category3')
+    };
 
-    function displayPlants() {
-        plants.forEach(plant => {
+    function displayPlants(plantsToDisplay) {
+        // Clear previous plant displays
+        Object.values(categories).forEach(category => category.innerHTML = '');
+
+        plantsToDisplay.forEach(plant => {
             const plantItem = document.createElement('div');
             plantItem.className = 'plant-item';
             plantItem.innerHTML = `
@@ -162,47 +189,30 @@
                     <p>${plant.description}</p>
                 </a>
             `;
+
             const firstLetter = plant.name[0].toUpperCase();
             if (firstLetter >= 'A' && firstLetter <= 'F') {
-                category1.appendChild(plantItem);
+                categories['A-F'].appendChild(plantItem);
             } else if (firstLetter >= 'G' && firstLetter <= 'M') {
-                category2.appendChild(plantItem);
+                categories['G-M'].appendChild(plantItem);
             } else {
-                category3.appendChild(plantItem);
+                categories['N-Z'].appendChild(plantItem);
             }
         });
     }
 
-    displayPlants();
+    displayPlants(plants);
 
-    // Search function
     function searchPlants() {
-        const query = document.getElementById('searchBar').value.toLowerCase();
+        const query = document.getElementById('searchBar').value.trim().toLowerCase();
         const filteredPlants = plants.filter(plant => plant.name.toLowerCase().includes(query));
-        category1.innerHTML = '';
-        category2.innerHTML = '';
-        category3.innerHTML = '';
-
-        filteredPlants.forEach(plant => {
-            const plantItem = document.createElement('div');
-            plantItem.className = 'plant-item';
-            plantItem.innerHTML = `
-                <a href="${plant.link}">
-                    <img src="${plant.image}" alt="${plant.name}">
-                    <h3>${plant.name}</h3>
-                    <p>${plant.description}</p>
-                </a>
-            `;
-            const firstLetter = plant.name[0].toUpperCase();
-            if (firstLetter >= 'A' && firstLetter <= 'F') {
-                category1.appendChild(plantItem);
-            } else if (firstLetter >= 'G' && firstLetter <= 'M') {
-                category2.appendChild(plantItem);
-            } else {
-                category3.appendChild(plantItem);
-            }
-        });
+        displayPlants(filteredPlants);
     }
+</script>
+
+</body>
+</html>
+
 </script>
 
 </body>

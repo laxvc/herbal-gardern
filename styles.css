@@ -27,7 +27,7 @@ body {
 
 .navbar a {
     color: white;
-    text-decoration: none;
+    text-decoration: none; /* Removes underline from navbar links */
     padding: 10px 20px;
     font-size: 1.2em;
 }
@@ -81,11 +81,14 @@ body {
     width: 30%;
     margin: 0 10px 40px;
     text-align: center;
-    transition: transform 0.3s;
+    transition: transform 0.3s, box-shadow 0.3s; /* Add box-shadow transition */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5px); /* Adds blur effect to background */
 }
 
 .plant-card:hover {
     transform: scale(1.05);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Enhanced hover effect */
 }
 
 .plant-card img {
@@ -96,6 +99,16 @@ body {
 .plant-card h3 {
     margin-top: 15px;
     font-size: 1.8em;
+}
+
+/* Remove underline from plant card links */
+.plant-card h3 a {
+    text-decoration: none; /* Remove underline */
+    color: #333;
+}
+
+.plant-card h3 a:hover {
+    color: #4CAF50; /* Change color on hover */
 }
 
 /* Footer Styles */
@@ -168,6 +181,16 @@ body {
     font-size: 1.5em;
 }
 
+/* Remove underline from plant names */
+.plant-item h3 a {
+    text-decoration: none;
+    color: #333;
+}
+
+.plant-item h3 a:hover {
+    color: #4CAF50; /* Changes color when hovered */
+}
+
 /* Responsive Design */
 @media (max-width: 1200px) {
     .plant-card {
@@ -226,4 +249,3 @@ body {
         border-radius: 10px;
     }
 }
-

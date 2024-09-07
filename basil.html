@@ -18,7 +18,10 @@
             height: 40vh; /* Smaller height for the loading screen */
             margin: 20px auto;
             position: relative;
-            background-color: #000; /* Black background for the model container */
+            background-color: #fff; /* White background for the model container */
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            overflow: hidden;
         }
 
         #basil-model {
@@ -146,7 +149,7 @@
     <script>
         // Initialize the scene
         const scene = new THREE.Scene();
-        scene.background = new THREE.Color(0x000000); // Black background for better contrast
+        scene.background = new THREE.Color(0xffffff); // White background for the scene
 
         // Initialize the camera
         const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
@@ -214,10 +217,5 @@
             }
         });
     </script>
-</body>
-</html>
-
-
-
 </body>
 </html>

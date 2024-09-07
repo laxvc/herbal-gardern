@@ -9,7 +9,8 @@
         body {
             margin: 0;
             font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
+            background-color: #f5f5f5;
+            color: #333;
         }
 
         #basil-model-container {
@@ -17,6 +18,7 @@
             height: 40vh; /* Smaller height for the loading screen */
             margin: 20px auto;
             position: relative;
+            background-color: #000; /* Black background for the model container */
         }
 
         #basil-model {
@@ -28,21 +30,64 @@
             margin: 20px auto;
             display: block;
             padding: 10px 20px;
-            background-color: #4CAF50;
-            color: white;
+            background-color: #333;
+            color: #fff;
             border: none;
             cursor: pointer;
             font-size: 16px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        #full-screen-toggle:hover {
+            background-color: #555;
         }
 
         .content {
             padding: 20px;
-            background: #ffffff;
-            border-top: 1px solid #dddddd;
+            background: #fff;
+            border-top: 1px solid #ddd;
+            max-width: 1000px;
+            margin: auto;
         }
 
-        h1 {
-            color: #4CAF50;
+        h1, h2 {
+            color: #000;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #333;
+            color: #fff;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        @media (max-width: 768px) {
+            #basil-model-container {
+                height: 30vh; /* Adjust height for smaller screens */
+            }
+
+            #full-screen-toggle {
+                font-size: 14px;
+                padding: 8px 16px;
+            }
         }
     </style>
     <!-- Include Three.js and GLTFLoader for GLB model -->
@@ -58,12 +103,11 @@
     </div>
 
     <div class="content">
-        <!-- Basil Details -->
         <h2>What is Basil?</h2>
-        <p>Basil is a fragrant herb used in various cuisines around the world. It is known for its aromatic leaves and has numerous culinary and medicinal uses. Basil is a key ingredient in dishes such as pesto and is valued for its flavor and health benefits.</p>
+        <p>Basil (Ocimum basilicum) is a fragrant herb widely used in cooking and traditional medicine. It is known for its aromatic leaves and is a staple in many culinary traditions, particularly in Italian cuisine. Basil's flavor is a combination of sweet and peppery, making it a popular choice for a variety of dishes, from salads to sauces.</p>
+        <p>In addition to its culinary uses, basil has a long history of medicinal applications. It has been used in traditional medicine systems around the world for its purported health benefits.</p>
 
         <h2>Benefits of Basil in Traditional and Modern Medicine</h2>
-        <!-- Benefits Table -->
         <table>
             <tr>
                 <th>Benefit</th>
@@ -73,27 +117,27 @@
             <tr>
                 <td>Antioxidant</td>
                 <td>Used to combat oxidative stress and support overall health.</td>
-                <td>Rich in antioxidants, which help protect cells from damage and support immune function.</td>
+                <td>Rich in antioxidants, basil helps protect cells from damage and supports immune function, potentially reducing the risk of chronic diseases.</td>
             </tr>
             <tr>
                 <td>Anti-inflammatory</td>
-                <td>Applied to reduce inflammation and irritation.</td>
-                <td>Proven to have anti-inflammatory effects that help alleviate conditions like arthritis.</td>
+                <td>Applied to reduce inflammation and irritation, often in the form of poultices or teas.</td>
+                <td>Research supports basil's anti-inflammatory effects, which can help alleviate conditions such as arthritis and other inflammatory disorders.</td>
             </tr>
             <tr>
                 <td>Digestive Health</td>
-                <td>Used to improve digestion and alleviate gastrointestinal discomfort.</td>
-                <td>Commonly used in supplements to support digestive health and reduce bloating.</td>
+                <td>Used to improve digestion and alleviate gastrointestinal discomfort, often as a tea or in culinary dishes.</td>
+                <td>Commonly used in supplements and culinary preparations to support digestive health, reduce bloating, and relieve nausea.</td>
             </tr>
             <tr>
                 <td>Antimicrobial</td>
-                <td>Applied to wounds and infections for its antimicrobial properties.</td>
-                <td>Used in topical applications to help prevent infections and support wound healing.</td>
+                <td>Applied to wounds and infections due to its antimicrobial properties.</td>
+                <td>Modern applications include topical formulations that help prevent infections and support wound healing due to basil's antimicrobial compounds.</td>
             </tr>
             <tr>
                 <td>Stress Relief</td>
-                <td>Used in traditional medicine to reduce stress and anxiety.</td>
-                <td>Modern studies suggest that basil may help manage stress and improve mental well-being.</td>
+                <td>Used in traditional medicine to reduce stress and anxiety, often in the form of teas or aromatherapy.</td>
+                <td>Studies suggest that basil may help manage stress and improve mental well-being by balancing cortisol levels and enhancing mood.</td>
             </tr>
         </table>
     </div>
@@ -102,7 +146,7 @@
     <script>
         // Initialize the scene
         const scene = new THREE.Scene();
-        scene.background = new THREE.Color(0xf0f0f0); // Light grey background
+        scene.background = new THREE.Color(0x000000); // Black background for better contrast
 
         // Initialize the camera
         const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
@@ -172,6 +216,7 @@
     </script>
 </body>
 </html>
+
 
 
 </body>

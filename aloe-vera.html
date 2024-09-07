@@ -9,7 +9,8 @@
         body {
             margin: 0;
             font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
+            background-color: #f5f5f5;
+            color: #333;
         }
 
         #aloe-vera-model-container {
@@ -17,6 +18,7 @@
             height: 40vh; /* Smaller height for the loading screen */
             margin: 20px auto;
             position: relative;
+            background-color: #000; /* Black background for the model container */
         }
 
         #aloe-vera-model {
@@ -28,21 +30,64 @@
             margin: 20px auto;
             display: block;
             padding: 10px 20px;
-            background-color: #4CAF50;
-            color: white;
+            background-color: #333;
+            color: #fff;
             border: none;
             cursor: pointer;
             font-size: 16px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        #full-screen-toggle:hover {
+            background-color: #555;
         }
 
         .content {
             padding: 20px;
-            background: #ffffff;
-            border-top: 1px solid #dddddd;
+            background: #fff;
+            border-top: 1px solid #ddd;
+            max-width: 1000px;
+            margin: auto;
         }
 
-        h1 {
-            color: #4CAF50;
+        h1, h2 {
+            color: #000;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #333;
+            color: #fff;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        @media (max-width: 768px) {
+            #aloe-vera-model-container {
+                height: 30vh; /* Adjust height for smaller screens */
+            }
+
+            #full-screen-toggle {
+                font-size: 14px;
+                padding: 8px 16px;
+            }
         }
     </style>
     <!-- Include Three.js and GLTFLoader for GLB model -->
@@ -58,12 +103,10 @@
     </div>
 
     <div class="content">
-        <!-- Aloe Vera Details -->
         <h2>What is Aloe Vera?</h2>
-        <p>Aloe Vera is a succulent plant known for its soothing and healing properties. Often used in skincare and cosmetics, Aloe Vera is celebrated for its ability to hydrate the skin, promote healing, and alleviate various skin conditions.</p>
+        <p>Aloe Vera is a succulent plant that has been used for centuries due to its wide range of medicinal properties. Native to the Arabian Peninsula, it has been cultivated around the world for its soothing gel and latex. Aloe Vera gel is often used in topical treatments for its healing and moisturizing benefits, while its latex can be used as a laxative.</p>
 
         <h2>Benefits of Aloe Vera in Traditional and Modern Medicine</h2>
-        <!-- Benefits Table -->
         <table>
             <tr>
                 <th>Benefit</th>
@@ -72,28 +115,28 @@
             </tr>
             <tr>
                 <td>Skin Soothing</td>
-                <td>Applied to soothe sunburns and minor burns.</td>
-                <td>Used in many skincare products for its soothing and hydrating properties.</td>
+                <td>Applied to soothe sunburns and minor burns. Often used as a natural remedy for skin irritation and dryness.</td>
+                <td>Widely used in skincare products such as lotions, creams, and gels for its anti-inflammatory and hydrating properties.</td>
             </tr>
             <tr>
                 <td>Anti-inflammatory</td>
-                <td>Used to reduce inflammation and irritation.</td>
-                <td>Proven to help reduce inflammation and support wound healing.</td>
+                <td>Used in traditional medicine to reduce inflammation and irritation, especially in cases of skin conditions.</td>
+                <td>Clinically proven to reduce inflammation, making it beneficial for conditions like arthritis and psoriasis.</td>
             </tr>
             <tr>
                 <td>Hydration</td>
-                <td>Applied topically to moisturize and hydrate the skin.</td>
-                <td>Commonly used in moisturizers and gels for its hydrating effects.</td>
+                <td>Applied topically to moisturize and hydrate the skin. Often used in home remedies for dry and flaky skin.</td>
+                <td>Incorporated into various cosmetic and medical products for its ability to provide long-lasting moisture to the skin.</td>
             </tr>
             <tr>
                 <td>Digestive Health</td>
-                <td>Consumed to aid digestion and relieve gastrointestinal issues.</td>
-                <td>Used in supplements to support digestive health and alleviate constipation.</td>
+                <td>Consumed in the form of juice to aid digestion and relieve gastrointestinal issues. Traditional uses include treating constipation and indigestion.</td>
+                <td>Used in supplements and juices to support digestive health, with evidence supporting its efficacy in relieving constipation and promoting overall gut health.</td>
             </tr>
             <tr>
                 <td>Antioxidant</td>
-                <td>Traditionally used for its antioxidant properties to support overall health.</td>
-                <td>Rich in antioxidants, which help combat oxidative stress and support immune function.</td>
+                <td>Traditionally valued for its antioxidant properties to help support overall health and prevent disease.</td>
+                <td>Rich in antioxidants, Aloe Vera helps combat oxidative stress, supports immune function, and contributes to overall wellness.</td>
             </tr>
         </table>
     </div>
@@ -102,7 +145,7 @@
     <script>
         // Initialize the scene
         const scene = new THREE.Scene();
-        scene.background = new THREE.Color(0xf0f0f0); // Light grey background
+        scene.background = new THREE.Color(0x000000); // Black background for better contrast
 
         // Initialize the camera
         const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
@@ -170,9 +213,6 @@
             }
         });
     </script>
-</body>
-</html>
-
 </body>
 </html>
 

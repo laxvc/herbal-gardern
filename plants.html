@@ -99,6 +99,19 @@
             font-size: 1em;
             color: #555;
         }
+        .learn-more-btn {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: background-color 0.3s;
+        }
+        .learn-more-btn:hover {
+            background-color: #388E3C;
+        }
         footer {
             background-color: #4CAF50;
             color: white;
@@ -188,6 +201,7 @@
                     <h3>${plant.name}</h3>
                     <p>${plant.description}</p>
                 </a>
+                <a href="${plant.link}" class="learn-more-btn">Learn More</a>
             `;
 
             const firstLetter = plant.name[0].toUpperCase();
@@ -208,11 +222,6 @@
         const filteredPlants = plants.filter(plant => plant.name.toLowerCase().includes(query));
         displayPlants(filteredPlants);
     }
-</script>
-
-</body>
-</html>
-
 </script>
 
 </body>

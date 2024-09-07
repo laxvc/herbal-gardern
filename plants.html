@@ -83,6 +83,8 @@
         }
         .plant-item img {
             width: 100%;
+            height: 150px; /* Set a fixed height for all images */
+            object-fit: cover; /* Ensures the images fit into the box while maintaining aspect ratio */
             border-radius: 12px 12px 0 0;
             transition: transform 0.3s;
         }
@@ -170,16 +172,16 @@
 
 <script>
     const plants = [
-        { name: "Aloe Vera", image: "images/aloe-vera.jpg", link: "aloe-vera.html", description: "Soothing skin care remedy" },
-        { name: "Basil", image: "images/basil.jpg", link: "basil.html", description: "Boosts immune system" },
-        { name: "Chamomile", image: "images/chamomile.jpg", link: "chamomile.html", description: "Great for relaxation" },
-        { name: "Dandelion", image: "images/dandelion.jpg", link: "dandelion.html", description: "Detoxifies the liver" },
-        { name: "Echinacea", image: "images/echinacea.jpg", link: "echinacea.html", description: "Fights infections" },
-        { name: "Fenugreek", image: "images/fenugreek.jpg", link: "fenugreek.html", description: "Improves digestion" },
-        { name: "Ginger", image: "images/ginger.jpg", link: "ginger.html", description: "Helps reduce nausea" },
-        { name: "Lavender", image: "images/lavender.jpg", link: "lavender.html", description: "Promotes calmness" },
-        { name: "Neem", image: "images/neem.jpg", link: "neem.html", description: "Natural antiseptic" },
-        { name: "Tulsi", image: "images/tulsi.jpg", link: "tulsi.html", description: "Helps relieve stress" }
+        { name: "Aloe Vera", image: "images/aloe-vera.jpg", link: "aloe-vera.html", description: Soothing skin care remedy },
+        { name: "Basil", image: "images/basil.jpg", link: "basil.html", description: Boosts immune system },
+        { name: "Chamomile", image: "images/chamomile.jpg", link: "chamomile.html", description: Great for relaxation },
+        { name: "Dandelion", image: "images/dandelion.jpg", link: "dandelion.html", description: Detoxifies the liver },
+        { name: "Echinacea", image: "images/echinacea.jpg", link: "echinacea.html", description: Fights infections },
+        { name: "Fenugreek", image: "images/fenugreek.jpg", link: "fenugreek.html", description: Improves digestion },
+        { name: "Ginger", image: "images/ginger.jpg", link: "ginger.html", description: Helps reduce nausea },
+        { name: "Lavender", image: "images/lavender.jpg", link: "lavender.html", description: Promotes calmness },
+        { name: "Neem", image: "images/neem.jpg", link: "neem.html", description: Natural antiseptic },
+        { name: "Tulsi", image: "images/tulsi.jpg", link: "tulsi.html", description: Helps relieve stress }
     ];
 
     const categories = {

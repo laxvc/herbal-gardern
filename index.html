@@ -11,6 +11,7 @@
             margin: 0;
             padding: 0;
             scroll-behavior: smooth; /* Smooth scrolling */
+            background: #f4f4f4;
         }
 
         /* Navbar */
@@ -18,7 +19,7 @@
             position: sticky;
             top: 0;
             width: 100%;
-            background-color: #4CAF50;
+            background-color: #333;
             display: flex;
             justify-content: space-between;
             padding: 15px 30px;
@@ -30,12 +31,12 @@
             color: white;
             text-decoration: none;
             padding: 8px 16px;
+            border-radius: 8px;
             transition: background 0.3s;
         }
 
         .navbar a:hover {
-            background-color: #388E3C;
-            border-radius: 5px;
+            background-color: #555;
         }
 
         .navbar .logo a {
@@ -46,7 +47,7 @@
         /* Hero Section */
         .hero {
             height: 100vh;
-            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('images/hero-background.jpg') no-repeat center center/cover;
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('images/hero-background.jpg') no-repeat center center/cover;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -56,13 +57,13 @@
         }
 
         .hero h1 {
-            font-size: 4em;
+            font-size: 3em;
             margin: 0;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
         }
 
         .hero p {
-            font-size: 1.5em;
+            font-size: 1.2em;
             margin-top: 20px;
             text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
         }
@@ -70,8 +71,9 @@
         .hero button {
             margin-top: 30px;
             padding: 15px 30px;
-            font-size: 1.2em;
-            background-color: #FF9800;
+            font-size: 1em;
+            background-color: #333;
+            color: white;
             border: none;
             border-radius: 8px;
             cursor: pointer;
@@ -79,14 +81,13 @@
         }
 
         .hero button:hover {
-            background-color: #FF5722;
+            background-color: #555;
         }
 
         /* Featured Plants */
         .featured-plants {
             padding: 60px 20px;
             text-align: center;
-            background-color: #f4f4f4;
         }
 
         .featured-plants h2 {
@@ -119,6 +120,12 @@
         .plant-card h3 {
             margin-top: 15px;
             font-size: 1.8em;
+            color: #333;
+        }
+
+        .plant-card p {
+            padding: 0 10px;
+            color: #555;
         }
 
         /* Footer */
@@ -135,7 +142,7 @@
             bottom: 20px;
             right: 20px;
             display: none;
-            background-color: #4CAF50;
+            background-color: #333;
             color: white;
             padding: 10px 20px;
             border-radius: 50%;
@@ -145,7 +152,7 @@
         }
 
         .back-to-top:hover {
-            background-color: #388E3C;
+            background-color: #555;
         }
 
         @media (max-width: 768px) {
@@ -240,4 +247,3 @@
 
 </body>
 </html>
-

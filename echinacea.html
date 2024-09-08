@@ -10,14 +10,19 @@
         body {
             margin: 0;
             font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
+            background-color: #f5f5f5;
+            color: #333;
         }
 
         #echinacea-model-container {
-            width: 100%; /* Adjust width */
-            height: 800px; /* Adjust height */
-            margin: 20px auto; /* Center container */
+            width: 100%;
+            height: 40vh;
+            margin: 20px auto;
             position: relative;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            overflow: hidden;
         }
 
         #echinacea-model {
@@ -25,10 +30,33 @@
             height: 100%;
         }
 
+        #full-screen-toggle {
+            margin: 20px auto;
+            display: block;
+            padding: 10px 20px;
+            background-color: #333;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        #full-screen-toggle:hover {
+            background-color: #555;
+        }
+
         .content {
             padding: 20px;
-            background: #ffffff;
-            border-top: 1px solid #dddddd;
+            background: #fff;
+            border-top: 1px solid #ddd;
+            max-width: 1000px;
+            margin: auto;
+        }
+
+        h1, h2 {
+            color: #000;
         }
 
         table {
@@ -38,27 +66,32 @@
         }
 
         table, th, td {
-            border: 1px solid #dddddd;
+            border: 1px solid #ddd;
+        }
+
+        th, td {
+            padding: 10px;
             text-align: left;
-            padding: 8px;
         }
 
         th {
-            background-color: #4CAF50;
-            color: white;
+            background-color: #333;
+            color: #fff;
         }
 
-        td {
-            background-color: #f9f9f9;
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
         }
 
-        h1, h2 {
-            color: #4CAF50;
-        }
+        @media (max-width: 768px) {
+            #echinacea-model-container {
+                height: 30vh;
+            }
 
-        p {
-            font-size: 1.2em;
-            line-height: 1.5em;
+            #full-screen-toggle {
+                font-size: 14px;
+                padding: 8px 16px;
+            }
         }
     </style>
     <!-- Include Three.js and GLTFLoader for GLB model -->
@@ -68,6 +101,7 @@
 </head>
 <body>
     <h1>Echinacea - 3D Model</h1>
+    <button id="full-screen-toggle">Toggle Full Screen</button>
     <div id="echinacea-model-container">
         <div id="echinacea-model"></div>
     </div>
@@ -89,28 +123,28 @@
             </tr>
             <tr>
                 <td>Immune Support</td>
-                <td>Traditionally used to enhance the immune system and prevent infections.</td>
-                <td>Studies confirm its effectiveness in stimulating immune response and reducing the duration of colds and infections.</td>
+                <td>Enhances the immune system to prevent infections.</td>
+                <td>Confirmed to stimulate immune response and reduce cold duration.</td>
             </tr>
             <tr>
                 <td>Anti-inflammatory</td>
-                <td>Applied to reduce inflammation and support overall health.</td>
-                <td>Contains compounds that help in reducing inflammation, beneficial for conditions like arthritis.</td>
+                <td>Reduces inflammation for overall health.</td>
+                <td>Helps with inflammation in conditions like arthritis.</td>
             </tr>
             <tr>
                 <td>Antioxidant</td>
-                <td>Consumed for its antioxidant properties to combat oxidative stress.</td>
-                <td>Rich in antioxidants that protect cells from damage and support healthy aging.</td>
+                <td>Fights oxidative stress.</td>
+                <td>Protects cells and supports healthy aging.</td>
             </tr>
             <tr>
                 <td>Respiratory Health</td>
-                <td>Used to treat respiratory issues like coughs and colds.</td>
-                <td>Often included in remedies for respiratory health due to its expectorant and antimicrobial properties.</td>
+                <td>Treats respiratory issues like colds.</td>
+                <td>Included in remedies for respiratory health.</td>
             </tr>
             <tr>
                 <td>Skin Health</td>
-                <td>Applied topically to support skin health and treat minor wounds.</td>
-                <td>Used in skincare products for its potential to support wound healing and skin health.</td>
+                <td>Applied topically to support skin health.</td>
+                <td>Used in skincare for wound healing.</td>
             </tr>
         </table>
     </div>
@@ -119,42 +153,43 @@
     <script>
         // Initialize the scene
         const scene = new THREE.Scene();
-        scene.background = new THREE.Color(0xf0f0f0); // Light grey background
+        scene.background = new THREE.Color(0xffffff);
 
         // Initialize the camera
         const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-        camera.position.set(0, 0, 5); // Adjust camera position
+        camera.position.set(0, 0, 5);
 
         // Initialize the renderer
         const renderer = new THREE.WebGLRenderer({ antialias: true });
-        renderer.setSize(window.innerWidth, window.innerHeight);
-        document.getElementById('echinacea-model').appendChild(renderer.domElement);
+        const container = document.getElementById('echinacea-model');
+        renderer.setSize(container.clientWidth, container.clientHeight);
+        container.appendChild(renderer.domElement);
+
+        renderer.setPixelRatio(window.devicePixelRatio);
 
         // Initialize OrbitControls
         const controls = new THREE.OrbitControls(camera, renderer.domElement);
-        controls.enableZoom = true; // Enable zooming
-        controls.enablePan = false; // Disable panning if you prefer
+        controls.enableZoom = true;
+        controls.enablePan = false;
 
         // Lighting setup
         const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
         directionalLight.position.set(5, 5, 5).normalize();
         scene.add(directionalLight);
 
-        const ambientLight = new THREE.AmbientLight(0x404040); // Soft light
+        const ambientLight = new THREE.AmbientLight(0x404040);
         scene.add(ambientLight);
 
         // Load the GLTF model
         const loader = new THREE.GLTFLoader();
         loader.load('models/echinacea.glb', function(gltf) {
             const model = gltf.scene;
-            model.scale.set(0.3, 0.3, 0.3); // Adjust scale of the model
-            model.position.set(0, -0.5, 0); // Position the model within the view
+            model.scale.set(0.3, 0.3, 0.3);
+            model.position.set(0, -0.5, 0);
             scene.add(model);
 
-            // Adjust controls after model is loaded
             controls.update();
-
-            animate(); // Start the animation loop after model is loaded
+            animate();
         }, undefined, function(error) {
             console.error('An error occurred while loading the model:', error);
         });
@@ -167,13 +202,21 @@
 
         // Handle window resize
         window.addEventListener('resize', function() {
-            const width = window.innerWidth;
-            const height = window.innerHeight;
+            const width = container.clientWidth;
+            const height = container.clientHeight;
             renderer.setSize(width, height);
             camera.aspect = width / height;
             camera.updateProjectionMatrix();
         });
-    </script>
 
+        // Full-screen toggle button functionality
+        document.getElementById('full-screen-toggle').addEventListener('click', () => {
+            if (document.fullscreenElement) {
+                document.exitFullscreen();
+            } else {
+                document.getElementById('echinacea-model-container').requestFullscreen();
+            }
+        });
+    </script>
 </body>
 </html>

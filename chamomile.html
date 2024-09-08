@@ -6,18 +6,22 @@
     <title>Chamomile - 3D Herbal Garden</title>
     <link rel="stylesheet" href="styles.css">
     <style>
-        /* Style the container and table */
         body {
             margin: 0;
             font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
+            background-color: #f5f5f5;
+            color: #333;
         }
 
         #chamomile-model-container {
-            width: 100%; /* Adjust width */
-            height: 800px; /* Adjust height */
-            margin: 20px auto; /* Center container */
+            width: 100%;
+            height: 40vh; /* Adjusted height for better mobile viewing */
+            margin: 20px auto;
             position: relative;
+            background-color: #fff; /* White background for the model container */
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            overflow: hidden;
         }
 
         #chamomile-model {
@@ -25,10 +29,33 @@
             height: 100%;
         }
 
+        #full-screen-toggle {
+            margin: 20px auto;
+            display: block;
+            padding: 10px 20px;
+            background-color: #333;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        #full-screen-toggle:hover {
+            background-color: #555;
+        }
+
         .content {
             padding: 20px;
-            background: #ffffff;
-            border-top: 1px solid #dddddd;
+            background: #fff;
+            border-top: 1px solid #ddd;
+            max-width: 1000px;
+            margin: auto;
+        }
+
+        h1, h2 {
+            color: #000;
         }
 
         table {
@@ -38,27 +65,32 @@
         }
 
         table, th, td {
-            border: 1px solid #dddddd;
+            border: 1px solid #ddd;
+        }
+
+        th, td {
+            padding: 10px;
             text-align: left;
-            padding: 8px;
         }
 
         th {
-            background-color: #4CAF50;
-            color: white;
+            background-color: #333;
+            color: #fff;
         }
 
-        td {
-            background-color: #f9f9f9;
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
         }
 
-        h1, h2 {
-            color: #4CAF50;
-        }
+        @media (max-width: 768px) {
+            #chamomile-model-container {
+                height: 30vh; /* Adjust height for smaller screens */
+            }
 
-        p {
-            font-size: 1.2em;
-            line-height: 1.5em;
+            #full-screen-toggle {
+                font-size: 14px;
+                padding: 8px 16px;
+            }
         }
     </style>
     <!-- Include Three.js and GLTFLoader for GLB model -->
@@ -68,18 +100,17 @@
 </head>
 <body>
     <h1>Chamomile - 3D Model</h1>
+    <button id="full-screen-toggle">Toggle Full Screen</button>
     <div id="chamomile-model-container">
         <div id="chamomile-model"></div>
     </div>
 
     <div class="content">
-        <!-- Chamomile Benefits Section -->
         <h2>What is Chamomile?</h2>
         <p>
-            Chamomile is a well-known herb used in teas and traditional medicine for its calming and soothing properties. It is widely appreciated for its ability to promote relaxation, aid digestion, and support overall health.
+            Chamomile (Matricaria chamomilla) is a well-known herb used for its calming properties. It's widely used in teas to promote relaxation and sleep, as well as in skin care for its soothing effects.
         </p>
 
-        <!-- Benefits Table -->
         <h2>Benefits of Chamomile in Traditional and Modern Medicine</h2>
         <table>
             <tr>
@@ -89,28 +120,23 @@
             </tr>
             <tr>
                 <td>Relaxation</td>
-                <td>Consumed as a tea to promote relaxation and improve sleep.</td>
-                <td>Used in supplements and teas for its calming effects, helping with anxiety and insomnia.</td>
+                <td>Used in teas to reduce stress and anxiety.</td>
+                <td>Promotes relaxation, helps reduce symptoms of anxiety and aids sleep.</td>
             </tr>
             <tr>
                 <td>Digestive Health</td>
-                <td>Traditionally used to soothe digestive discomfort and alleviate symptoms of indigestion.</td>
-                <td>Helps with digestive issues, including bloating and nausea, due to its anti-inflammatory properties.</td>
+                <td>Soothes upset stomachs and relieves indigestion.</td>
+                <td>Commonly used to alleviate digestive issues such as bloating and gas.</td>
             </tr>
             <tr>
                 <td>Anti-inflammatory</td>
-                <td>Applied topically to reduce inflammation and skin irritation.</td>
-                <td>Contains compounds that can reduce inflammation and support skin health when used in topical treatments.</td>
+                <td>Applied to the skin to reduce irritation and inflammation.</td>
+                <td>Contains anti-inflammatory compounds that support skin health.</td>
             </tr>
             <tr>
-                <td>Immune Support</td>
-                <td>Used to boost immune function and prevent common colds.</td>
-                <td>Supports the immune system and helps in fighting off infections due to its antioxidant properties.</td>
-            </tr>
-            <tr>
-                <td>Anxiety Relief</td>
-                <td>Consumed to help manage stress and anxiety.</td>
-                <td>Often used in anxiety treatments for its calming effects and ability to promote emotional well-being.</td>
+                <td>Sleep Aid</td>
+                <td>Promotes restful sleep when consumed before bed.</td>
+                <td>Included in many sleep remedies to help improve sleep quality.</td>
             </tr>
         </table>
     </div>
@@ -119,7 +145,7 @@
     <script>
         // Initialize the scene
         const scene = new THREE.Scene();
-        scene.background = new THREE.Color(0xf0f0f0); // Light grey background
+        scene.background = new THREE.Color(0xffffff); // White background for the scene
 
         // Initialize the camera
         const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
@@ -127,20 +153,24 @@
 
         // Initialize the renderer
         const renderer = new THREE.WebGLRenderer({ antialias: true });
-        renderer.setSize(window.innerWidth, window.innerHeight);
-        document.getElementById('chamomile-model').appendChild(renderer.domElement);
+        const container = document.getElementById('chamomile-model');
+        renderer.setSize(container.clientWidth, container.clientHeight);
+        container.appendChild(renderer.domElement);
+
+        // Dynamic resolution adjustment
+        renderer.setPixelRatio(window.devicePixelRatio); // Adjust resolution based on device
 
         // Initialize OrbitControls
         const controls = new THREE.OrbitControls(camera, renderer.domElement);
-        controls.enableZoom = true; // Enable zooming
-        controls.enablePan = false; // Disable panning if you prefer
+        controls.enableZoom = true;
+        controls.enablePan = false;
 
         // Lighting setup
         const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
         directionalLight.position.set(5, 5, 5).normalize();
         scene.add(directionalLight);
 
-        const ambientLight = new THREE.AmbientLight(0x404040); // Soft light
+        const ambientLight = new THREE.AmbientLight(0x404040);
         scene.add(ambientLight);
 
         // Load the GLTF model
@@ -148,7 +178,7 @@
         loader.load('models/chamomile.glb', function(gltf) {
             const model = gltf.scene;
             model.scale.set(0.3, 0.3, 0.3); // Adjust scale of the model
-            model.position.set(0, -0.5, 0); // Position the model within the view
+            model.position.set(0, -0.5, 0);
             scene.add(model);
 
             // Adjust controls after model is loaded
@@ -167,13 +197,25 @@
 
         // Handle window resize
         window.addEventListener('resize', function() {
-            const width = window.innerWidth;
-            const height = window.innerHeight;
+            const width = container.clientWidth;
+            const height = container.clientHeight;
             renderer.setSize(width, height);
             camera.aspect = width / height;
             camera.updateProjectionMatrix();
         });
+
+        // Full-screen toggle button functionality
+        document.getElementById('full-screen-toggle').addEventListener('click', () => {
+            if (document.fullscreenElement) {
+                document.exitFullscreen();
+            } else {
+                document.getElementById('chamomile-model-container').requestFullscreen();
+            }
+        });
     </script>
+</body>
+</html>
+
 
 </body>
 </html>

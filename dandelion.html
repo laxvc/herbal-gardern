@@ -20,6 +20,9 @@
             border-radius: 20px;
             box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.1);
             overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center; /* Center content vertically */
         }
 
         #dandelion-model {
@@ -119,7 +122,7 @@
 
         // Camera setup
         const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-        camera.position.set(0, 0, 5);
+        camera.position.set(0, 0, 3); // Adjusted position for better centering
 
         // Renderer setup
         const renderer = new THREE.WebGLRenderer({ antialias: true });
@@ -147,8 +150,8 @@
         function loadModel(url) {
             loader.load(url, function(gltf) {
                 const model = gltf.scene;
-                model.scale.set(0.3, 0.3, 0.3);
-                model.position.set(0, -0.5, 0);
+                model.scale.set(0.5, 0.5, 0.5); // Adjusted size
+                model.position.set(0, -0.2, 0); // Adjusted for centering vertically
                 model.castShadow = true;
                 scene.add(model);
 
@@ -191,3 +194,4 @@
     </script>
 </body>
 </html>
+

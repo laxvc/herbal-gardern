@@ -10,8 +10,9 @@
             font-family: 'Arial', sans-serif;
             margin: 0;
             padding: 0;
-            scroll-behavior: smooth; /* Smooth scrolling */
-            background: #f4f4f4;
+            scroll-behavior: smooth;
+            background: linear-gradient(to bottom right, #000000, #1c1c1c);
+            color: #ffffff;
         }
 
         /* Navbar */
@@ -19,11 +20,11 @@
             position: sticky;
             top: 0;
             width: 100%;
-            background-color: #333;
+            background-color: rgba(0, 0, 0, 0.8);
             display: flex;
             justify-content: space-between;
             padding: 15px 30px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px); /* Gaussian blur */
             z-index: 1000;
         }
 
@@ -32,16 +33,12 @@
             text-decoration: none;
             padding: 8px 16px;
             border-radius: 8px;
-            transition: background 0.3s;
+            transition: background 0.3s, transform 0.3s;
         }
 
         .navbar a:hover {
-            background-color: #555;
-        }
-
-        .navbar .logo a {
-            font-size: 1.5em;
-            font-weight: bold;
+            background-color: #3498db; /* Light blue accent */
+            transform: translateY(-2px);
         }
 
         /* Hero Section */
@@ -54,48 +51,39 @@
             text-align: center;
             color: white;
             position: relative;
+            backdrop-filter: blur(8px); /* Slight blur for depth */
         }
 
         .hero h1 {
-            font-size: 3em;
+            font-size: 3.5em;
             margin: 0;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            text-shadow: 3px 3px 8px rgba(0, 0, 0, 0.7);
         }
 
         .hero p {
-            font-size: 1.2em;
+            font-size: 1.5em;
             margin-top: 20px;
-            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+            text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.5);
         }
 
         .hero button {
             margin-top: 30px;
             padding: 15px 30px;
             font-size: 1em;
-            background-color: #333;
+            background-color: #3498db;
             color: white;
             border: none;
             border-radius: 8px;
             cursor: pointer;
-            transition: background-color 0.3s;
+            transition: transform 0.3s, box-shadow 0.3s;
         }
 
         .hero button:hover {
-            background-color: #555;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
         }
 
-        /* Featured Plants */
-        .featured-plants {
-            padding: 60px 20px;
-            text-align: center;
-        }
-
-        .featured-plants h2 {
-            margin-bottom: 40px;
-            font-size: 2.5em;
-            color: #333;
-        }
-
+        /* Plant Cards */
         .plant-card {
             display: inline-block;
             width: 30%;
@@ -103,13 +91,14 @@
             text-align: center;
             transition: transform 0.3s, box-shadow 0.3s;
             border-radius: 15px;
-            background-color: white;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            background-color: rgba(255, 255, 255, 0.1); /* Transparent with blur */
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(5px); /* Gaussian blur */
         }
 
         .plant-card:hover {
             transform: translateY(-10px);
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
         }
 
         .plant-card img {
@@ -120,20 +109,21 @@
         .plant-card h3 {
             margin-top: 15px;
             font-size: 1.8em;
-            color: #333;
+            color: #ffffff;
         }
 
         .plant-card p {
             padding: 0 10px;
-            color: #555;
+            color: #b0b0b0;
         }
 
         /* Footer */
         .footer {
-            background-color: #333;
-            color: white;
+            background-color: rgba(0, 0, 0, 0.9);
+            color: #ffffff;
             padding: 40px;
             text-align: center;
+            backdrop-filter: blur(10px); /* Blur on the footer */
         }
 
         /* Back-to-Top Button */
@@ -142,7 +132,7 @@
             bottom: 20px;
             right: 20px;
             display: none;
-            background-color: #333;
+            background-color: rgba(52, 152, 219, 0.8); /* Light blue with transparency */
             color: white;
             padding: 10px 20px;
             border-radius: 50%;
@@ -152,7 +142,7 @@
         }
 
         .back-to-top:hover {
-            background-color: #555;
+            background-color: #2980b9;
         }
 
         @media (max-width: 768px) {
@@ -247,3 +237,4 @@
 
 </body>
 </html>
+

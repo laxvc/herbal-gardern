@@ -4,20 +4,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lavender - 3D Herbal Garden</title>
-    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        /* Style the container and table */
+        /* Custom styles for model container */
         body {
             margin: 0;
             font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
         }
 
         #lavender-model-container {
-            width: 100%; /* Adjust width */
-            height: 800px; /* Adjust height */
-            margin: 20px auto; /* Center container */
+            height: 800px;
             position: relative;
+            background: white;
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center; /* Center content vertically */
         }
 
         #lavender-model {
@@ -25,139 +30,141 @@
             height: 100%;
         }
 
-        .content {
-            padding: 20px;
-            background: #ffffff;
-            border-top: 1px solid #dddddd;
+        h1, h2 {
+            color: #1a73e8;
         }
 
         table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
+            border-radius: 10px;
+            overflow: hidden;
         }
 
-        table, th, td {
-            border: 1px solid #dddddd;
-            text-align: left;
-            padding: 8px;
-        }
+        /* For mobile responsiveness */
+        @media screen and (max-width: 768px) {
+            #lavender-model-container {
+                height: 400px;
+            }
 
-        th {
-            background-color: #4CAF50;
-            color: white;
-        }
+            table, th, td {
+                font-size: 0.9em;
+            }
 
-        td {
-            background-color: #f9f9f9;
-        }
-
-        h1, h2 {
-            color: #4CAF50;
-        }
-
-        p {
-            font-size: 1.2em;
-            line-height: 1.5em;
+            h1, h2 {
+                font-size: 1.5em;
+            }
         }
     </style>
-    <!-- Include Three.js and GLTFLoader for GLB model -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/three@0.128/examples/js/loaders/GLTFLoader.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/three@0.128/examples/js/controls/OrbitControls.js"></script>
 </head>
-<body>
-    <h1>Lavender - 3D Model</h1>
-    <div id="lavender-model-container">
+<body class="bg-gray-100 text-gray-800">
+    <div class="text-center py-10">
+        <h1 class="text-4xl font-bold mb-4">Lavender - 3D Model</h1>
+    </div>
+    
+    <!-- Toggle Screen Button -->
+    <div class="text-center">
+        <button id="toggle-screen" class="px-4 py-2 bg-blue-600 text-white rounded-lg">Toggle Fullscreen</button>
+    </div>
+
+    <div id="lavender-model-container" class="max-w-screen-lg mx-auto mt-5">
         <div id="lavender-model"></div>
     </div>
 
-    <div class="content">
-        <!-- Lavender Benefits Section -->
-        <h2>What is Lavender?</h2>
-        <p>
-            Lavender is a fragrant herb known for its calming and soothing properties. It is widely used in aromatherapy, skincare, and as a culinary herb. Lavender is valued for its ability to reduce anxiety, promote relaxation, and improve sleep quality.
+    <div class="content max-w-screen-lg mx-auto mt-10 p-5 bg-white shadow-lg rounded-lg">
+        <h2 class="text-2xl font-semibold mb-4">What is Lavender?</h2>
+        <p class="mb-6">
+            Lavender is well-known for its calming aroma and therapeutic properties. Used in traditional and modern medicine, lavender helps reduce anxiety, improve sleep, and relieve pain. It is also commonly used in skincare, teas, and essential oils for its soothing effects.
         </p>
 
-        <!-- Benefits Table -->
-        <h2>Benefits of Lavender in Traditional and Modern Medicine</h2>
-        <table>
-            <tr>
-                <th>Benefit</th>
-                <th>Traditional Use</th>
-                <th>Modern Medicine</th>
-            </tr>
-            <tr>
-                <td>Calming</td>
-                <td>Used traditionally to reduce stress and anxiety.</td>
-                <td>Often used in aromatherapy and sleep aids for its calming effects.</td>
-            </tr>
-            <tr>
-                <td>Anti-inflammatory</td>
-                <td>Applied to soothe skin irritations and minor burns.</td>
-                <td>Included in many skincare products for its anti-inflammatory properties.</td>
-            </tr>
-            <tr>
-                <td>Sleep Aid</td>
-                <td>Used as a natural remedy for insomnia and sleep disorders.</td>
-                <td>Commonly used in essential oils and sleep sprays to promote better sleep.</td>
-            </tr>
-            <tr>
-                <td>Digestive Health</td>
-                <td>Consumed as a tea to relieve digestive issues and nausea.</td>
-                <td>Utilized in herbal remedies for its soothing effects on the digestive system.</td>
-            </tr>
-            <tr>
-                <td>Antioxidant</td>
-                <td>Used traditionally for its antioxidant benefits to support overall health.</td>
-                <td>Rich in antioxidants, which help protect cells from oxidative stress and support overall wellness.</td>
-            </tr>
-        </table>
+        <h2 class="text-2xl font-semibold mb-4">Benefits of Lavender in Traditional and Modern Medicine</h2>
+        <div class="overflow-x-auto">
+            <table class="table-auto w-full text-left border border-gray-300 rounded-lg">
+                <thead>
+                    <tr class="bg-blue-600 text-white">
+                        <th class="px-4 py-2">Benefit</th>
+                        <th class="px-4 py-2">Traditional Use</th>
+                        <th class="px-4 py-2">Modern Medicine</th>
+                    </tr>
+                </thead>
+                <tbody class="bg-gray-100">
+                    <tr class="hover:bg-blue-50 transition">
+                        <td class="px-4 py-2">Relaxation</td>
+                        <td class="px-4 py-2">Promote relaxation and reduce stress.</td>
+                        <td class="px-4 py-2">Shown to reduce anxiety and improve mood.</td>
+                    </tr>
+                    <tr class="hover:bg-blue-50 transition">
+                        <td class="px-4 py-2">Sleep Aid</td>
+                        <td class="px-4 py-2">Used to enhance sleep quality.</td>
+                        <td class="px-4 py-2">Improves sleep by reducing restlessness.</td>
+                    </tr>
+                    <tr class="hover:bg-blue-50 transition">
+                        <td class="px-4 py-2">Pain Relief</td>
+                        <td class="px-4 py-2">Applied to relieve headaches and muscle pain.</td>
+                        <td class="px-4 py-2">Effective in reducing migraines and body pain.</td>
+                    </tr>
+                    <tr class="hover:bg-blue-50 transition">
+                        <td class="px-4 py-2">Skin Care</td>
+                        <td class="px-4 py-2">Soothe skin irritation and promote healing.</td>
+                        <td class="px-4 py-2">Used in skincare for its anti-inflammatory properties.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 
     <!-- 3D Model Script -->
     <script>
-        // Initialize the scene
+        // Scene setup
         const scene = new THREE.Scene();
-        scene.background = new THREE.Color(0xf0f0f0); // Light grey background
+        scene.background = new THREE.Color(0xffffff);
 
-        // Initialize the camera
+        // Camera setup
         const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-        camera.position.set(0, 0, 5); // Adjust camera position
+        camera.position.set(0, 0, 3); // Adjusted position for better centering
 
-        // Initialize the renderer
+        // Renderer setup
         const renderer = new THREE.WebGLRenderer({ antialias: true });
         renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.shadowMap.enabled = true;
         document.getElementById('lavender-model').appendChild(renderer.domElement);
 
-        // Initialize OrbitControls
+        // Orbit controls
         const controls = new THREE.OrbitControls(camera, renderer.domElement);
-        controls.enableZoom = true; // Enable zooming
-        controls.enablePan = false; // Disable panning if you prefer
+        controls.enableZoom = true;
+        controls.enablePan = true;
 
         // Lighting setup
         const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
         directionalLight.position.set(5, 5, 5).normalize();
+        directionalLight.castShadow = true;
         scene.add(directionalLight);
 
-        const ambientLight = new THREE.AmbientLight(0x404040); // Soft light
+        const ambientLight = new THREE.AmbientLight(0x404040);
         scene.add(ambientLight);
 
-        // Load the GLTF model
+        // Load 3D model
         const loader = new THREE.GLTFLoader();
-        loader.load('models/lavender.glb', function(gltf) {
-            const model = gltf.scene;
-            model.scale.set(0.3, 0.3, 0.3); // Adjust scale of the model
-            model.position.set(0, -0.5, 0); // Position the model within the view
-            scene.add(model);
 
-            // Adjust controls after model is loaded
-            controls.update();
+        function loadModel(url) {
+            loader.load(url, function(gltf) {
+                const model = gltf.scene;
+                model.scale.set(0.5, 0.5, 0.5); // Adjusted size
+                model.position.set(0, -0.2, 0); // Adjusted for centering vertically
+                model.castShadow = true;
+                scene.add(model);
 
-            animate(); // Start the animation loop after model is loaded
-        }, undefined, function(error) {
-            console.error('An error occurred while loading the model:', error);
-        });
+                controls.update();
+                animate();
+            }, undefined, function(error) {
+                console.error('An error occurred while loading the model:', error);
+            });
+        }
+
+        // Load the Lavender model
+        const modelUrl = 'models/lavender'; // Set the base path for the model
+        loadModel(modelUrl + '.glb'); // Load .glb model (adjust if using .gltf)
 
         // Animation loop
         function animate() {
@@ -166,14 +173,25 @@
         }
 
         // Handle window resize
-        window.addEventListener('resize', function() {
-            const width = window.innerWidth;
-            const height = window.innerHeight;
-            renderer.setSize(width, height);
-            camera.aspect = width / height;
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
             camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+
+        // Toggle Fullscreen
+        const toggleButton = document.getElementById('toggle-screen');
+        toggleButton.addEventListener('click', () => {
+            const container = document.getElementById('lavender-model-container');
+            if (!document.fullscreenElement) {
+                container.requestFullscreen().catch(err => {
+                    console.error(`Error attempting to enable fullscreen: ${err.message}`);
+                });
+            } else {
+                document.exitFullscreen();
+            }
         });
     </script>
-
 </body>
 </html>
+

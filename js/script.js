@@ -14,7 +14,7 @@ const plants = [
 
 // Create the scene
 const scene = new THREE.Scene();
-scene.background = new THREE.Color(0xdddddd);
+scene.background = new THREE.Color(0xffffff); // Set background to white
 
 // Create a camera
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
@@ -25,21 +25,27 @@ const renderer = new THREE.WebGLRenderer({ antialias: true });
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
 
-// Add a light source
-const light = new THREE.DirectionalLight(0xffffff, 1);
-light.position.set(5, 5, 5).normalize();
-scene.add(light);
+// Add lights
+const ambientLight = new THREE.AmbientLight(0x404040); // Ambient light
+scene.add(ambientLight);
 
-// Function to load GLTF models
+const directionalLight = new THREE.DirectionalLight(0xffffff, 1); // Directional light
+directionalLight.position.set(5, 5, 5).normalize();
+scene.add(directionalLight);
+
+// Loader for models
+const loader = new THREE.GLTFLoader();
+
+// Function to load GLTF or GLB models
 function loadModel(modelPath, position) {
-    const loader = new THREE.GLTFLoader();
     loader.load(modelPath, function(gltf) {
         const model = gltf.scene;
         model.position.set(position.x, position.y, position.z);
         model.scale.set(0.5, 0.5, 0.5); // Adjust scale if needed
         scene.add(model);
+        checkLoadingComplete();
     }, undefined, function(error) {
-        console.error('An error happened', error);
+        console.error('Error loading model:', error);
     });
 }
 
@@ -57,8 +63,22 @@ const positions = [
     { x: 1, y: 0, z: -3 }
 ];
 
+let modelsLoaded = 0;
+const totalModels = plants.length;
+
+// Function to check if all models are loaded
+function checkLoadingComplete() {
+    modelsLoaded++;
+    if (modelsLoaded === totalModels) {
+        const loaderElement = document.getElementById('loading');
+        if (loaderElement) loaderElement.style.display = 'none'; // Hide loader
+    }
+}
+
+// Load models
 plants.forEach((plant, index) => {
-    loadModel(plant.model, positions[index] || { x: 0, y: 0, z: 0 });
+    const modelPath = plant.model;
+    loadModel(modelPath, positions[index] || { x: 0, y: 0, z: 0 });
 });
 
 // Animation loop

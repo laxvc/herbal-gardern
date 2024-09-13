@@ -4,194 +4,167 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Aloe Vera - 3D Herbal Garden</title>
-    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
+        /* Custom styles for model container */
         body {
             margin: 0;
             font-family: Arial, sans-serif;
-            background-color: #f5f5f5;
-            color: #333;
         }
 
-        #aloe-vera-model-container {
-            width: 100%;
-            height: 40vh; /* Adjust height for smaller screens */
-            margin: 20px auto;
+        #aloe-model-container {
+            height: 800px;
             position: relative;
-            background-color: #fff; /* White background for the model container */
-            border: 1px solid #ddd;
-            border-radius: 8px;
+            background: white;
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.1);
             overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center; /* Center content vertically */
         }
 
-        #aloe-vera-model {
+        #aloe-model {
             width: 100%;
             height: 100%;
         }
 
-        #full-screen-toggle {
-            margin: 20px auto;
-            display: block;
-            padding: 10px 20px;
-            background-color: #333;
-            color: #fff;
-            border: none;
-            cursor: pointer;
-            font-size: 16px;
-            border-radius: 5px;
-            transition: background-color 0.3s;
-        }
-
-        #full-screen-toggle:hover {
-            background-color: #555;
-        }
-
-        .content {
-            padding: 20px;
-            background: #fff;
-            border-top: 1px solid #ddd;
-            max-width: 1000px;
-            margin: auto;
-        }
-
         h1, h2 {
-            color: #000;
+            color: #1a73e8;
         }
 
         table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
+            border-radius: 10px;
+            overflow: hidden;
         }
 
-        table, th, td {
-            border: 1px solid #ddd;
-        }
-
-        th, td {
-            padding: 10px;
-            text-align: left;
-        }
-
-        th {
-            background-color: #333;
-            color: #fff;
-        }
-
-        tr:nth-child(even) {
-            background-color: #f2f2f2;
-        }
-
-        @media (max-width: 768px) {
-            #aloe-vera-model-container {
-                height: 30vh; /* Adjust height for smaller screens */
+        /* For mobile responsiveness */
+        @media screen and (max-width: 768px) {
+            #aloe-model-container {
+                height: 400px;
             }
 
-            #full-screen-toggle {
-                font-size: 14px;
-                padding: 8px 16px;
+            table, th, td {
+                font-size: 0.9em;
+            }
+
+            h1, h2 {
+                font-size: 1.5em;
             }
         }
     </style>
-    <!-- Include Three.js and GLTFLoader for GLB model -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/three@0.128/examples/js/loaders/GLTFLoader.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/three@0.128/examples/js/controls/OrbitControls.js"></script>
 </head>
-<body>
-    <h1>Aloe Vera - 3D Model</h1>
-    <button id="full-screen-toggle">Toggle Full Screen</button>
-    <div id="aloe-vera-model-container">
-        <div id="aloe-vera-model"></div>
+<body class="bg-gray-100 text-gray-800">
+    <div class="text-center py-10">
+        <h1 class="text-4xl font-bold mb-4">Aloe Vera - 3D Model</h1>
+    </div>
+    
+    <!-- Toggle Screen Button -->
+    <div class="text-center">
+        <button id="toggle-screen" class="px-4 py-2 bg-blue-600 text-white rounded-lg">Toggle Fullscreen</button>
     </div>
 
-    <div class="content">
-        <h2>What is Aloe Vera?</h2>
-        <p>Aloe Vera (Aloe barbadensis) is a succulent plant known for its medicinal and cosmetic benefits. Its leaves contain a gel-like substance that is commonly used in skincare products to soothe and hydrate the skin. Aloe Vera is also used for its potential health benefits, including its ability to aid in digestion and promote wound healing.</p>
-        <p>Traditionally, Aloe Vera has been used in various cultures for centuries, valued for its natural soothing properties. The plant's versatility makes it a popular choice for both home remedies and commercial products.</p>
+    <div id="aloe-model-container" class="max-w-screen-lg mx-auto mt-5">
+        <div id="aloe-model"></div>
+    </div>
 
-        <h2>Benefits of Aloe Vera in Traditional and Modern Medicine</h2>
-        <table>
-            <tr>
-                <th>Benefit</th>
-                <th>Traditional Use</th>
-                <th>Modern Medicine</th>
-            </tr>
-            <tr>
-                <td>Skin Soothing</td>
-                <td>Applied topically to soothe sunburns, minor burns, and skin irritations.</td>
-                <td>Widely used in skincare products for its hydrating and anti-inflammatory properties.</td>
-            </tr>
-            <tr>
-                <td>Wound Healing</td>
-                <td>Applied to wounds and cuts to speed up healing and reduce scarring.</td>
-                <td>Clinical studies support Aloe Vera's role in promoting faster healing and reducing inflammation.</td>
-            </tr>
-            <tr>
-                <td>Digestive Health</td>
-                <td>Consumed to aid digestion and relieve gastrointestinal discomfort.</td>
-                <td>Used in supplements and juices to support digestive health and alleviate constipation.</td>
-            </tr>
-            <tr>
-                <td>Anti-inflammatory</td>
-                <td>Used to reduce inflammation in conditions like arthritis and joint pain.</td>
-                <td>Modern research confirms Aloe Vera's anti-inflammatory effects, which can help in managing chronic inflammatory conditions.</td>
-            </tr>
-            <tr>
-                <td>Antioxidant</td>
-                <td>Used to support overall health and combat oxidative stress.</td>
-                <td>Rich in antioxidants, Aloe Vera helps protect cells from damage and supports the immune system.</td>
-            </tr>
-        </table>
+    <div class="content max-w-screen-lg mx-auto mt-10 p-5 bg-white shadow-lg rounded-lg">
+        <h2 class="text-2xl font-semibold mb-4">What is Aloe Vera?</h2>
+        <p class="mb-6">
+            Aloe Vera is a succulent plant known for its medicinal properties. It is commonly used in skincare, wound healing, and digestive aid. Aloe Vera gel, extracted from the plant's leaves, contains anti-inflammatory and soothing compounds.
+        </p>
+
+        <h2 class="text-2xl font-semibold mb-4">Benefits of Aloe Vera in Traditional and Modern Medicine</h2>
+        <div class="overflow-x-auto">
+            <table class="table-auto w-full text-left border border-gray-300 rounded-lg">
+                <thead>
+                    <tr class="bg-blue-600 text-white">
+                        <th class="px-4 py-2">Benefit</th>
+                        <th class="px-4 py-2">Traditional Use</th>
+                        <th class="px-4 py-2">Modern Medicine</th>
+                    </tr>
+                </thead>
+                <tbody class="bg-gray-100">
+                    <tr class="hover:bg-blue-50 transition">
+                        <td class="px-4 py-2">Wound Healing</td>
+                        <td class="px-4 py-2">Applied to burns and wounds for faster healing.</td>
+                        <td class="px-4 py-2">Used in modern skincare to treat burns and cuts.</td>
+                    </tr>
+                    <tr class="hover:bg-blue-50 transition">
+                        <td class="px-4 py-2">Digestive Aid</td>
+                        <td class="px-4 py-2">Consumed to relieve constipation and improve digestion.</td>
+                        <td class="px-4 py-2">Aloe Vera is known for its soothing effects on digestion.</td>
+                    </tr>
+                    <tr class="hover:bg-blue-50 transition">
+                        <td class="px-4 py-2">Skin Care</td>
+                        <td class="px-4 py-2">Used to soothe skin irritations and rashes.</td>
+                        <td class="px-4 py-2">Common ingredient in skincare for hydrating and soothing skin.</td>
+                    </tr>
+                    <tr class="hover:bg-blue-50 transition">
+                        <td class="px-4 py-2">Anti-inflammatory</td>
+                        <td class="px-4 py-2">Used traditionally to reduce inflammation.</td>
+                        <td class="px-4 py-2">Modern medicine uses it for its anti-inflammatory properties.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 
     <!-- 3D Model Script -->
     <script>
-        // Initialize the scene
+        // Scene setup
         const scene = new THREE.Scene();
-        scene.background = new THREE.Color(0xffffff); // White background for the scene
+        scene.background = new THREE.Color(0xffffff);
 
-        // Initialize the camera
+        // Camera setup
         const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-        camera.position.set(0, 0, 5); // Adjust camera position
+        camera.position.set(0, 0, 3); // Adjusted position for better centering
 
-        // Initialize the renderer
+        // Renderer setup
         const renderer = new THREE.WebGLRenderer({ antialias: true });
-        const container = document.getElementById('aloe-vera-model');
-        renderer.setSize(container.clientWidth, container.clientHeight);
-        container.appendChild(renderer.domElement);
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.shadowMap.enabled = true;
+        document.getElementById('aloe-model').appendChild(renderer.domElement);
 
-        // Dynamic resolution adjustment
-        renderer.setPixelRatio(window.devicePixelRatio); // Adjust resolution based on device
-
-        // Initialize OrbitControls
+        // Orbit controls
         const controls = new THREE.OrbitControls(camera, renderer.domElement);
         controls.enableZoom = true;
-        controls.enablePan = false;
+        controls.enablePan = true;
 
         // Lighting setup
         const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
         directionalLight.position.set(5, 5, 5).normalize();
+        directionalLight.castShadow = true;
         scene.add(directionalLight);
 
         const ambientLight = new THREE.AmbientLight(0x404040);
         scene.add(ambientLight);
 
-        // Load the GLTF model
+        // Load 3D model
         const loader = new THREE.GLTFLoader();
-        loader.load('models/aloe-vera.glb', function(gltf) {
-            const model = gltf.scene;
-            model.scale.set(0.2, 0.2, 0.2); // Adjust scale for a smaller model
-            model.position.set(0, -0.5, 0);
-            scene.add(model);
 
-            // Adjust controls after model is loaded
-            controls.update();
+        function loadModel(url) {
+            loader.load(url, function(gltf) {
+                const model = gltf.scene;
+                model.scale.set(0.5, 0.5, 0.5); // Adjusted size
+                model.position.set(0, -0.2, 0); // Adjusted for centering vertically
+                model.castShadow = true;
+                scene.add(model);
 
-            animate(); // Start the animation loop after model is loaded
-        }, undefined, function(error) {
-            console.error('An error occurred while loading the model:', error);
-        });
+                controls.update();
+                animate();
+            }, undefined, function(error) {
+                console.error('An error occurred while loading the model:', error);
+            });
+        }
+
+        // Load the Aloe Vera model
+        const modelUrl = 'models/aloevera'; // Set the base path for the model
+        loadModel(modelUrl + '.glb'); // Load .glb model (adjust if using .gltf)
 
         // Animation loop
         function animate() {
@@ -200,20 +173,22 @@
         }
 
         // Handle window resize
-        window.addEventListener('resize', function() {
-            const width = container.clientWidth;
-            const height = container.clientHeight;
-            renderer.setSize(width, height);
-            camera.aspect = width / height;
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
             camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
         });
 
-        // Full-screen toggle button functionality
-        document.getElementById('full-screen-toggle').addEventListener('click', () => {
-            if (document.fullscreenElement) {
-                document.exitFullscreen();
+        // Toggle Fullscreen
+        const toggleButton = document.getElementById('toggle-screen');
+        toggleButton.addEventListener('click', () => {
+            const container = document.getElementById('aloe-model-container');
+            if (!document.fullscreenElement) {
+                container.requestFullscreen().catch(err => {
+                    console.error(`Error attempting to enable fullscreen: ${err.message}`);
+                });
             } else {
-                document.getElementById('aloe-vera-model-container').requestFullscreen();
+                document.exitFullscreen();
             }
         });
     </script>

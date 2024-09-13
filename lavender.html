@@ -6,10 +6,10 @@
     <title>Lavender - 3D Herbal Garden</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        /* Custom styles for model container */
         body {
             margin: 0;
             font-family: Arial, sans-serif;
+            background: linear-gradient(to bottom right, #f0f4f8, #dfe7ed);
         }
 
         #lavender-model-container {
@@ -22,7 +22,7 @@
             overflow: hidden;
             display: flex;
             justify-content: center;
-            align-items: center; /* Center content vertically */
+            align-items: center;
         }
 
         #lavender-model {
@@ -37,6 +37,21 @@
         table {
             border-radius: 10px;
             overflow: hidden;
+            width: 100%;
+        }
+
+        th, td {
+            padding: 8px;
+            border: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #1a73e8;
+            color: white;
+        }
+
+        td {
+            background-color: #f8f9fa;
         }
 
         /* For mobile responsiveness */
@@ -60,7 +75,8 @@
 </head>
 <body class="bg-gray-100 text-gray-800">
     <div class="text-center py-10">
-        <h1 class="text-4xl font-bold mb-4">Lavender - 3D Model</h1>
+        <h1 class="text-4xl font-bold mb-4">Lavender - 3D Model & Benefits</h1>
+        <p class="text-xl mb-4">Discover the healing power of lavender and explore its soothing effects in our 3D model below.</p>
     </div>
     
     <!-- Toggle Screen Button -->
@@ -68,6 +84,7 @@
         <button id="toggle-screen" class="px-4 py-2 bg-blue-600 text-white rounded-lg">Toggle Fullscreen</button>
     </div>
 
+    <!-- 3D Model Container -->
     <div id="lavender-model-container" class="max-w-screen-lg mx-auto mt-5">
         <div id="lavender-model"></div>
     </div>
@@ -75,7 +92,7 @@
     <div class="content max-w-screen-lg mx-auto mt-10 p-5 bg-white shadow-lg rounded-lg">
         <h2 class="text-2xl font-semibold mb-4">What is Lavender?</h2>
         <p class="mb-6">
-            Lavender is well-known for its calming aroma and therapeutic properties. Used in traditional and modern medicine, lavender helps reduce anxiety, improve sleep, and relieve pain. It is also commonly used in skincare, teas, and essential oils for its soothing effects.
+            Lavender (*Lavandula angustifolia*) is celebrated for its calming and therapeutic properties. Whether used in aromatherapy or skincare, lavender is a gentle remedy for stress, anxiety, and pain. Its active compounds, such as linalool, contribute to these relaxing effects by modulating neurotransmitters in the brain.
         </p>
 
         <h2 class="text-2xl font-semibold mb-4">Benefits of Lavender in Traditional and Modern Medicine</h2>
@@ -91,27 +108,37 @@
                 <tbody class="bg-gray-100">
                     <tr class="hover:bg-blue-50 transition">
                         <td class="px-4 py-2">Relaxation</td>
-                        <td class="px-4 py-2">Promote relaxation and reduce stress.</td>
-                        <td class="px-4 py-2">Shown to reduce anxiety and improve mood.</td>
+                        <td class="px-4 py-2">Used to reduce stress and promote calm.</td>
+                        <td class="px-4 py-2">Proven to decrease anxiety and improve mood.</td>
                     </tr>
                     <tr class="hover:bg-blue-50 transition">
                         <td class="px-4 py-2">Sleep Aid</td>
-                        <td class="px-4 py-2">Used to enhance sleep quality.</td>
-                        <td class="px-4 py-2">Improves sleep by reducing restlessness.</td>
+                        <td class="px-4 py-2">Helps improve sleep quality.</td>
+                        <td class="px-4 py-2">Shown to reduce insomnia and restlessness.</td>
                     </tr>
                     <tr class="hover:bg-blue-50 transition">
                         <td class="px-4 py-2">Pain Relief</td>
-                        <td class="px-4 py-2">Applied to relieve headaches and muscle pain.</td>
-                        <td class="px-4 py-2">Effective in reducing migraines and body pain.</td>
+                        <td class="px-4 py-2">Applied to alleviate headaches and muscle pain.</td>
+                        <td class="px-4 py-2">Effective in reducing migraines and chronic pain.</td>
                     </tr>
                     <tr class="hover:bg-blue-50 transition">
                         <td class="px-4 py-2">Skin Care</td>
-                        <td class="px-4 py-2">Soothe skin irritation and promote healing.</td>
-                        <td class="px-4 py-2">Used in skincare for its anti-inflammatory properties.</td>
+                        <td class="px-4 py-2">Promotes healing and soothes irritation.</td>
+                        <td class="px-4 py-2">Used in treatments for inflammation and acne.</td>
+                    </tr>
+                    <tr class="hover:bg-blue-50 transition">
+                        <td class="px-4 py-2">Aromatherapy</td>
+                        <td class="px-4 py-2">Used in massages and oil treatments for relaxation.</td>
+                        <td class="px-4 py-2">Shown to reduce anxiety and lower heart rates.</td>
                     </tr>
                 </tbody>
             </table>
         </div>
+
+        <h2 class="text-2xl font-semibold mt-8 mb-4">Scientific Studies on Lavender's Efficacy</h2>
+        <p>
+            Research highlights lavender's ability to reduce anxiety, particularly through inhalation and aromatherapy massage. Studies show that lavender may modulate GABA receptors, contributing to its calming effects. However, more rigorous studies are needed to solidify its role in modern medicine.
+        </p>
     </div>
 
     <!-- 3D Model Script -->
@@ -122,7 +149,7 @@
 
         // Camera setup
         const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-        camera.position.set(0, 0, 3); // Adjusted position for better centering
+        camera.position.set(0, 0, 3);
 
         // Renderer setup
         const renderer = new THREE.WebGLRenderer({ antialias: true });
@@ -150,8 +177,8 @@
         function loadModel(url) {
             loader.load(url, function(gltf) {
                 const model = gltf.scene;
-                model.scale.set(0.5, 0.5, 0.5); // Adjusted size
-                model.position.set(0, -0.2, 0); // Adjusted for centering vertically
+                model.scale.set(0.5, 0.5, 0.5);
+                model.position.set(0, -0.2, 0);
                 model.castShadow = true;
                 scene.add(model);
 
@@ -163,8 +190,8 @@
         }
 
         // Load the Lavender model
-        const modelUrl = 'models/lavender'; // Set the base path for the model
-        loadModel(modelUrl + '.glb'); // Load .glb model (adjust if using .gltf)
+        const modelUrl = 'models/lavender'; // Update this to the correct path of your model
+        loadModel(modelUrl + '.glb'); // Adjust to .gltf if needed
 
         // Animation loop
         function animate() {
@@ -185,7 +212,7 @@
             const container = document.getElementById('lavender-model-container');
             if (!document.fullscreenElement) {
                 container.requestFullscreen().catch(err => {
-                    console.error(`Error attempting to enable fullscreen: ${err.message}`);
+                    console.error('Error attempting to enable full-screen mode:', err);
                 });
             } else {
                 document.exitFullscreen();
